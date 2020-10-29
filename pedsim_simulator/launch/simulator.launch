@@ -1,0 +1,119 @@
+<launch>
+  <arg name="kbd_teleop" default="false"/>
+  <arg name="rqt_teleop" default="false"/>
+  <arg name="scene_file" default="$(find experimental_package)scenarios/business_area/shared_space.xml"/>
+  <arg name="default_queue_size" default="10"/>
+  <arg name="max_robot_speed" default="3"/>
+  <arg name="robot_mode" default="1"/>
+  <arg name="enable_groups" default="true"/>
+  <arg name="with_robot" default="true"/>
+  <arg name="pose_initial_x" default="5.0"/>
+  <arg name="pose_initial_y" default="5.0"/>
+  <arg name="pose_initial_theta" default="0.0"/>
+  <arg name="probability_random_stop" default="0.0"/><!--<arg name="probability_random_stop" default="0.005"/>-->
+  <arg name="enable_distraction" default="false"/>
+  <arg name="simulation_factor" default="1"/>
+  <arg name="update_rate" default="25.0"/>
+  <arg name="robot_description" default="$(find experimental_package)/models/zoe/urdf/zoe.urdf"/>
+  
+  <arg name="force_random" default="0.1"/>
+  <arg name="force_obstacle" default="10.0"/>
+  <arg name="sigma_obstacle" default="0.2"/>
+  <arg name="force_social" default="5.1"/>
+  <arg name="force_group_gaze" default="3.0"/>
+  <!-- IMPORTANT: Group coherence force increased -->
+  <arg name="force_group_coherence" default="20.0"/>
+  <!-- IMPORTANT: Group repulsion force disabled because already managed in social force -->
+  <arg name="force_group_repulsion" default="0.0"/>
+  <arg name="force_wall" default="2.0"/>
+
+   <arg name="read_from_file" default="false"/>
+   <arg name="trajectories_file" default=""/>
+
+  <arg name="group_size_lambda" default="1.1"/>
+  <arg name="groups_couples_proportion" default="0.0"/>
+  <arg name="groups_friends_proportion" default="1.0"/>
+  <arg name="groups_families_proportion" default="0.0"/>
+  <arg name="groups_coworkers_proportion" default="0.0"/>
+
+  <arg name="angle_frontal_collision_risk" default="25.0"/>
+  <arg name="danger_radius" default="0.5"/>
+  <arg name="risk_radius" default="1.0"/>
+  <arg name="ttc_low" default="-1.0"/>
+  <arg name="ttc_up" default="5.0"/>
+  <arg name="ttc_stop" default="1.5"/>
+  <arg name="hesitation_threshold" default="0.1"/>
+  <arg name="ns" default=""/>
+
+  <param name="robot_description" textfile="$(arg robot_description)" if="$(arg with_robot)"/>
+
+   <node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher" if="$(arg with_robot)" />
+   <node name="robot_state_publisher" pkg="robot_state_publisher" type="state_publisher" if="$(arg with_robot)"/>
+
+  <!-- main simulator node -->
+  <node name="pedsim_simulator" pkg="pedsim_simulator" type="pedsim_simulator" output="screen">
+    <param name="scene_file" value="$(arg scene_file)" type="string"/>
+    <param name="default_queue_size" value="$(arg default_queue_size)" type="int"/>
+    <param name="max_robot_speed" value="$(arg max_robot_speed)" type="double"/>
+    <param name="pose_initial_x" value="$(arg pose_initial_x)" type="double"/>
+    <param name="pose_initial_y" value="$(arg pose_initial_y)" type="double"/>
+    <param name="pose_initial_theta" value="$(arg pose_initial_theta)" type="double"/>
+    <param name="probability_random_stop" value="$(arg probability_random_stop)" type="double"/>
+    <param name="enable_distraction" value="$(arg enable_distraction)" type="bool"/>
+    <param name="robot_mode" value="$(arg robot_mode)" type="int"/>
+    <param name="simulation_factor" value="$(arg simulation_factor)" type="double"/>
+    <param name="update_rate" value="$(arg update_rate)" type="double"/>
+    
+   <param name="enable_groups" value="$(arg enable_groups)" type="bool"/>
+   <param name="group_size_lambda" value="$(arg group_size_lambda)" type="double"/>
+   <param name="groups_couples_proportion" value="$(arg groups_couples_proportion)" type="double"/>
+   <param name="groups_friends_proportion" value="$(arg groups_friends_proportion)" type="double"/>
+   <param name="groups_families_proportion" value="$(arg groups_families_proportion)" type="double"/>
+   <param name="groups_coworkers_proportion" value="$(arg groups_coworkers_proportion)" type="double"/>
+
+    <param name="force_random" value="$(arg force_random)" type="double"/>
+    <param name="force_obstacle" value="$(arg force_obstacle)" type="double"/>
+    <param name="sigma_obstacle" value="$(arg sigma_obstacle)" type="double"/>
+    <param name="force_social" value="$(arg force_social)" type="double"/>
+    <param name="force_group_gaze" value="$(arg force_group_gaze)" type="double"/>
+    <param name="force_group_coherence" value="$(arg force_group_coherence)" type="double"/>
+    <param name="force_group_repulsion" value="$(arg force_group_repulsion)" type="double"/>
+    <param name="force_wall" value="$(arg force_wall)" type="double"/>
+
+    <param name="ns" value="$(arg ns)" type="string"/>
+    <param name="read_from_file" value="$(arg read_from_file)" type="bool"/>
+    <param name="trajectories_file" value="$(arg trajectories_file)" type="string"/>
+
+    <param name="angle_frontal_collision_risk" value="$(arg angle_frontal_collision_risk)" type="double"/>
+    <param name="danger_radius" value="$(arg danger_radius)" type="double"/>
+    <param name="risk_radius" value="$(arg risk_radius)" type="double"/>
+    <param name="ttc_low" value="$(arg ttc_low)" type="double"/>
+    <param name="ttc_up" value="$(arg ttc_up)" type="double"/>
+    <param name="ttc_stop" value="$(arg ttc_stop)" type="double"/>
+    <param name="hesitation_threshold" value="$(arg hesitation_threshold)" type="double"/>
+
+  </node>
+
+    <include file="$(find pedsim_sensors)/launch/people_pcd_sensor.launch">
+      <arg name="origin_x" value="$(arg pose_initial_x)"/>
+      <arg name="origin_y" value="$(arg pose_initial_y)"/>
+      <arg name="rate" value="$(arg update_rate)"/>
+      <arg name="ns" value="$(arg ns)"/>
+    </include>
+
+
+  <!-- Robot controller (optional) -->
+  <group ns="pedbot/control" if="$(arg with_robot)">
+    <include file="$(find pedsim_simulator)/launch/robot_controller.launch">
+      <arg name="pose_initial_x" value="$(arg pose_initial_x)"/>
+      <arg name="pose_initial_y" value="$(arg pose_initial_y)"/>
+      <arg name="pose_initial_theta" value="$(arg pose_initial_theta)"/>
+      <arg name="robot_mode" value="$(arg robot_mode)"/>
+      <arg name="kbd_teleop" value="$(arg kbd_teleop)"/>
+      <arg name="rqt_teleop" value="$(arg rqt_teleop)"/>
+      <arg name="robot_description" value="$(arg robot_description)"/>
+      <arg name="ns" value="$(arg ns)"/>
+    </include>
+  </group>
+
+</launch>

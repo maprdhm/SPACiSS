@@ -1,0 +1,610 @@
+<?xml version="1.0"?>
+
+<robot name="zoe">
+	<gazebo reference="front_left_wheel">
+    <mu1>1.5</mu1>
+    <mu2>1.5</mu2>
+    <minDepth>0.02</minDepth>
+    <kp>1e8</kp>
+  </gazebo>
+  <gazebo reference="front_right_wheel">
+    <mu1>1.5</mu1>
+    <mu2>1.5</mu2>
+    <minDepth>0.02</minDepth>
+    <kp>1e8</kp>
+  </gazebo>
+  <gazebo reference="rear_left_wheel">
+    <mu1>1.5</mu1>
+    <mu2>1.5</mu2>
+    <minDepth>0.02</minDepth>
+    <kp>1e8</kp>
+  </gazebo>
+  <gazebo reference="rear_right_wheel">
+    <mu1>1.5</mu1>
+    <mu2>1.5</mu2>
+    <minDepth>0.02</minDepth>
+    <kp>1e8</kp>
+  </gazebo>
+
+      <link name="group1/base_link">
+		<inertial>
+			<mass value="0.1"/>
+      <origin xyz="0 0 0"/>
+      <inertia ixx="0.000904524377773" ixy="0.0" ixz="0.0" iyy="0.000904524377773" iyz="0.0" izz="0.0001423828125"/>
+		</inertial>
+	</link>
+
+  <joint name="base_link_chassis_joint" type="continuous">
+    <origin rpy="0 0 0" xyz="-1.95 0 0"/>
+    <parent link="group1/base_link"/>
+    <child link="group1/chassis"/>
+		<axis xyz="1 0 0"/>
+  </joint>
+
+  <link name="group1/chassis" >
+		<inertial>
+			<mass value="880.3"/>
+      <origin rpy=" 0 0 0" xyz="0 0 0.534"/>
+      <inertia ixx="987.0" ixy="0.0" ixz="0.0" iyy="274.0" iyz="0.0" izz="1102.0"/>
+    </inertial>
+
+    <visual name="chassis_visual">
+			<origin rpy="0 0 1.570796327" xyz="0 0 0"/>	
+    	<geometry>
+    		<mesh filename="package://experimental_package/models/zoe/meshes/ZoeWheelsLess.dae"/>
+  		</geometry>
+    </visual>
+		<!--<collision>
+			<origin rpy="0 0 1.570796327" xyz="0 0 0"/>	
+    	<geometry>
+    		<mesh filename="package://experimental_package/models/zoe//meshes/ZoeWheelsLess.dae"/>
+  		</geometry>
+    </collision>-->
+  </link>
+
+  <link name="group1/front_right_wheel">
+    <inertial>
+      <mass value="10"/>
+      <inertia ixx="0.58631238" ixy="0.0" ixz="0.0" iyy="0.33552910" iyz="0.0" izz="0.33552910"/>
+    </inertial>
+    <collision name="front_right_wheel_collision">
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+			<geometry>
+				<sphere radius="0.31045"/>
+			</geometry>
+    </collision>
+		<visual name="front_right_wheel_visual">
+			<origin rpy="1.57 0 0" xyz="0 0.125 0"/>
+			<geometry>
+				<mesh filename="package://experimental_package/models/zoe/meshes/car_wheel.dae"/>
+			</geometry>
+		</visual>
+  </link>
+
+  <link name="group1/front_left_wheel">
+		<inertial>
+			<mass value="10"/>
+			<inertia ixx="0.58631238" ixy="0.0" ixz="0.0" iyy="0.33552910" iyz="0.0" izz="0.33552910"/>
+		</inertial>
+		<collision name="front_left_wheel_collision">
+			<origin rpy="0 0 0" xyz="0 0 0"/>
+			<geometry>
+				<sphere radius="0.31045"/>
+			</geometry>
+		</collision>
+		<visual name="front_left_wheel_visual">
+			<origin rpy="1.57 0 0" xyz="0 0.125 0"/>
+			<geometry>
+				<mesh filename="package://experimental_package/models/zoe/meshes/car_wheel.dae"/>
+			</geometry>
+		</visual>
+  </link>
+
+  <link name="group1/rear_right_wheel">
+    <inertial>
+      <mass value="10"/>
+      <inertia ixx="0.58631238" ixy="0.0" ixz="0.0" iyy="0.33552910" iyz="0.0" izz="0.33552910"/>
+    </inertial>
+    <collision name="rear_right_wheel_collision">
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+			<geometry>
+				<sphere radius="0.31045"/>
+			</geometry>
+    </collision>
+    <visual name="rear_right_wheel_visual">
+      <origin rpy="0.0 1.570700 -1.570700" xyz="0.0 0.1 0.0"/>
+      <geometry>
+        <mesh filename="package://experimental_package/models/zoe/meshes/car_wheel.dae"/>
+      </geometry>
+    </visual>
+  </link>
+
+  <link name="group1/rear_left_wheel">
+    <inertial>
+      <mass value="10"/>
+      <inertia ixx="0.58631238" ixy="0.0" ixz="0.0" iyy="0.33552910" iyz="0.0" izz="0.33552910"/>
+    </inertial>
+    <collision name="rear_left_wheel_collision">
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+			<geometry>
+				<sphere radius="0.31045"/>
+			</geometry>
+    </collision>
+    <visual name="rear_left_wheel_visual">
+      <origin rpy="0.000000 1.570700 1.570700" xyz="0.0 -0.1 0.0"/>
+      <geometry>
+        <mesh filename="package://experimental_package/models/zoe/meshes/car_wheel.dae"/>
+      </geometry>
+    </visual>
+  </link>
+
+
+	<joint name="rear_left_spinning" type="continuous">
+		<origin rpy="0 0 0" xyz="-3.334 0.755 0.31045"/>
+            <parent link="group1/base_link"/>
+            <child link="group1/rear_left_wheel"/>
+		<axis xyz="0.0 1.0 0.0"/>
+	</joint>
+
+	<joint name="rear_right_spinning" type="continuous">
+		<origin rpy="0 0 0" xyz="-3.334 -0.755 0.31045"/>
+            <parent link="group1/base_link"/>
+            <child link="group1/rear_right_wheel"/>
+		<axis xyz="0.0 1.0 0.0"/>
+	</joint>
+
+	<joint name="front_right_spinning" type="continuous">
+		<origin rpy="0 0 0" xyz="0 0.0 0"/>
+            <parent link="group1/right_axis"/>
+            <child link="group1/front_right_wheel"/>
+		<axis xyz="0 1 0"/>
+	</joint>
+	<joint name="front_left_spinning" type="continuous">
+		<origin rpy="0 0 0" xyz="0 0.0 0"/>
+            <parent link="group1/left_axis"/>
+            <child link="group1/front_left_wheel"/>
+		<axis xyz="0 1 0"/>
+	</joint>
+
+	<joint name="right_steering" type="continuous">
+		<origin xyz="-0.746 -0.755 0.31045" rpy="0 0 0"/>
+            <parent link="group1/base_link"/>
+            <child link="group1/right_axis"/>
+		<axis xyz="0 0 1"/>
+		<limit lower="-1.0" upper="1.0" effort="10000000" velocity="1000000"/>
+		<dynamics damping="50"/>
+	</joint>
+  <joint name="left_steering" type="continuous">
+    <origin xyz="-0.746 0.755 0.31045" rpy="0 0 0"/>
+    <parent link="group1/base_link"/>
+    <child link="group1/left_axis"/>
+    <axis xyz="0 0 1"/>
+    <limit lower="-1.0" upper="1.0" effort="10000000" velocity="1000000"/>
+		<dynamics damping="50"/>
+  </joint>
+
+      <link name="group1/left_axis">
+    <origin rpy="1.57 0 0" xyz="0 0 0"/>
+    <visual name="front_visual">
+      <origin rpy="1.57 0 0" xyz="0 0 0"/>
+      <geometry name="front_geometry">
+        <cylinder length="0.10" radius="0.016875"/>
+      </geometry>
+      <material name="blue"/>
+    </visual>
+    <inertial>
+      <mass value="0.1"/>
+      <origin xyz="0 0 0"/>
+      <inertia ixx="0.000904524377773" ixy="0.0" ixz="0.0" iyy="0.000904524377773" iyz="0.0" izz="0.0001423828125"/>
+    </inertial>
+  </link>
+
+      <link name="group1/right_axis">
+    <origin rpy="1.57 0 0" xyz="0 0 0"/>
+    <visual name="front_visual">
+      <origin rpy="1.57 0 0" xyz="0 0 0"/>
+      <geometry name="front_geometry">
+        <cylinder length="0.10" radius="0.016875"/>
+      </geometry>
+      <material name="blue"/>
+    </visual>
+    <inertial>
+      <mass value="0.1"/>
+      <origin xyz="0 0 0"/>
+      <inertia ixx="0.000904524377773" ixy="0.0" ixz="0.0" iyy="0.000904524377773" iyz="0.0" izz="0.0001423828125"/>
+    </inertial>
+  </link>
+
+	<gazebo reference="base_link_chassis_joint">
+    <disableFixedJointLumping>true</disableFixedJointLumping>
+  </gazebo>
+
+	<gazebo>
+		<plugin name="zoe_model" filename="libzoe_model.so">
+			<!-- Physical parameters -->
+			<vehicle_length>2.588</vehicle_length>
+			<vehicle_width>1.510</vehicle_width>
+			<actuatedWheelDiameter>0.6209</actuatedWheelDiameter>
+			<encoderWheelDiameter>0.6209</encoderWheelDiameter>
+			<encoderWheelSeparation>1.6</encoderWheelSeparation>
+			<steeringAngleLimit>0.52</steeringAngleLimit>
+
+			<!-- Dynamic parameters -->
+			<SpinningTorque>10000000</SpinningTorque>
+      <SteeringTorque>10000000</SteeringTorque>
+			<MaxBrakeStrength>3000000.0</MaxBrakeStrength>
+
+			<!-- Software parameters -->
+			<controlMode>torque</controlMode>
+			<rosDebugLevel>Info</rosDebugLevel>
+			<updateRate>200.0</updateRate>
+			<publishWheelJointState>true</publishWheelJointState>
+			<publishWheelTF>false</publishWheelTF>
+			<odometrySource>world</odometrySource>
+
+			<!-- Topics -->
+			<odometryTopic>odom</odometryTopic>
+			<commandTopic>/zoe/control/refs</commandTopic>
+
+			<!-- Frames -->
+			<odometryFrame>map</odometryFrame>
+			<absolutePosition>worldPose</absolutePosition>
+			<robotBaseFrame>zoe/zoe_odom_origin</robotBaseFrame>
+
+			<!-- Links to reach objects -->
+			<steeringLeft>zoe::left_steering</steeringLeft>
+			<spinningLeft>zoe::front_left_spinning</spinningLeft>
+			<steeringRight>zoe::right_steering</steeringRight>
+			<spinningRight>zoe::front_right_spinning</spinningRight>
+			<encoderWheelLeftJoint>zoe::rear_left_spinning</encoderWheelLeftJoint>
+			<encoderWheelRightJoint>zoe::rear_right_spinning</encoderWheelRightJoint>
+		</plugin>
+
+		<selfCollide>false</selfCollide>
+	</gazebo>
+  
+      <link name="group1/zoe_odom_origin">
+		<inertial>
+			<origin rpy="0 0 0" xyz="0 0 0"/>
+			<mass value="0.1"/>
+			<inertia ixx="0.000904524377773" ixy="0.0" ixz="0.0" iyy="0.000904524377773" iyz="0.0" izz="0.0001423828125"/>
+		</inertial>
+	</link>
+	<joint name="control_frame_positionning" type="fixed">
+		<origin rpy="0 0 0" xyz="3.334 0 -0.31045"/>
+            <parent link="group1/zoe_odom_origin"/>
+            <child link="group1/base_link"/>
+	</joint>
+	
+      <link name="group1/lux_center">
+		<inertial>
+			<origin rpy="0 0 0" xyz="0 0 0"/>
+			<mass value="0.1"/>
+			<inertia ixx="0.000904524377773" ixy="0.0" ixz="0.0" iyy="0.000904524377773" iyz="0.0" izz="0.0001423828125"/>
+		</inertial>
+	</link>
+	<joint name="front_center_sensor_positionning" type="fixed">
+		<origin rpy="0 0 0.016" xyz="0 0 0.36"/>
+            <parent link="group1/base_link"/>
+            <child link="group1/lux_center"/>
+	</joint>
+	
+      <link name="group1/lux_right">
+		<inertial>
+			<origin rpy="0 0 0" xyz="0 0 0"/>
+			<mass value="0.1"/>
+			<inertia ixx="0.000904524377773" ixy="0.0" ixz="0.0" iyy="0.000904524377773" iyz="0.0" izz="0.0001423828125"/>
+		</inertial>
+	</link>
+	<joint name="front_right_sensor_positionning" type="fixed">
+		<origin rpy="0 0 -0.662" xyz="-0.15 -0.63 0.38"/>
+            <parent link="group1/base_link"/>
+            <child link="group1/lux_right"/>
+	</joint>
+	
+      <link name="group1/lux_left">
+		<inertial>
+			<origin rpy="0 0 0" xyz="0 0 0"/>
+			<mass value="0.1"/>
+			<inertia ixx="0.000904524377773" ixy="0.0" ixz="0.0" iyy="0.000904524377773" iyz="0.0" izz="0.0001423828125"/>
+		</inertial>
+	</link>
+	<joint name="front_left_sensor_positionning" type="fixed">
+		<origin rpy="0 0 0.718" xyz="-0.2 0.53 0.38"/>
+            <parent link="group1/base_link"/>
+            <child link="group1/lux_left"/>
+	</joint>
+	
+      <link name="group1/lux_rear">
+		<inertial>
+			<origin rpy="0 0 0" xyz="0 0 0"/>
+			<mass value="0.1"/>
+			<inertia ixx="0.000904524377773" ixy="0.0" ixz="0.0" iyy="0.000904524377773" iyz="0.0" izz="0.0001423828125"/>
+		</inertial>
+	</link>
+	<joint name="rear_center_sensor_positionning" type="fixed">
+		<origin rpy="0 0 -3.083" xyz="-3.934 0 0.5"/>
+            <parent link="group1/base_link"/>
+            <child link="group1/lux_rear"/>
+	</joint>
+	
+      <link name="group1/velodyne">
+		<inertial>
+			<origin rpy="0 0 0" xyz="0 0 0"/>
+			<mass value="0.1"/>
+			<inertia ixx="0.000904524377773" ixy="0.0" ixz="0.0" iyy="0.000904524377773" iyz="0.0" izz="0.0001423828125"/>
+		</inertial>
+	</link>
+	<joint name="velodyne_positionning" type="fixed">
+		<origin rpy="0 0.015 0.013" xyz="-2.35 0 1.75"/>
+            <parent link="group1/base_link"/>
+            <child link="group1/velodyne"/>
+	</joint>
+  
+	<gazebo reference="velodyne">
+		<sensor type="ray" name="velodyne">
+			<pose>0 0 0 0 0 0</pose>
+			<visualize>false</visualize>
+			<update_rate>20.0</update_rate>
+			<plugin name="velodyne_data" filename="libgazebo_laser_pointcloud2.so">
+				<updateRate>20.0</updateRate>
+				<frameName>zoe/velodyne</frameName>
+				<topicName>/zoe/velodyne_points</topicName>
+			</plugin>
+			<ray>
+				<scan>
+					<horizontal>
+						<samples>2251</samples>
+						<!--samples>564</samples-->
+						<resolution>1.0</resolution>
+						<min_angle>-3.14</min_angle>
+						<max_angle>3.14</max_angle>
+					</horizontal>
+					<vertical>
+						<!--samples>64</samples-->
+						<samples>16</samples>
+						<resolution>1.0</resolution>
+						<min_angle>-0.434366667</min_angle>
+						<max_angle>0.034888889</max_angle>
+					</vertical>
+				</scan>
+				<range>
+					<min>0.05</min>
+					<max>120.0</max>
+					<resolution>0.01</resolution>
+				</range>
+			</ray>
+		</sensor>
+	</gazebo>
+  
+	<gazebo reference="lux_center">
+		<sensor type="ray" name="front_center_sensor">
+			<pose>0 0 0 0 0 0</pose>
+			<visualize>false</visualize>
+			<update_rate>25.0</update_rate>
+			<plugin name="front_center_sensor_data" filename="libgazebo_laser_pointcloud2.so">
+				<updateRate>25.0</updateRate>
+				<frameName>zoe/lux_center</frameName>
+				<topicName>/zoe/lux_center</topicName>
+			</plugin>
+			<ray>
+				<scan>
+					<horizontal>
+						<samples>201</samples>
+						<resolution>1.0</resolution>
+						<min_angle>-0.872664630413</min_angle>
+						<max_angle>0.872664630413</max_angle>
+					</horizontal>
+					<vertical>
+						<samples>4</samples>
+						<resolution>1.0</resolution>
+						<min_angle>-0.012217</min_angle>
+						<max_angle>0.00872654</max_angle>
+					</vertical>
+				</scan>
+				<range>
+					<min>0.05</min>
+					<max>150.0</max>
+					<resolution>0.01</resolution>
+				</range>
+			</ray>
+		</sensor>
+	</gazebo>
+  
+	<gazebo reference="lux_left">
+		<sensor type="ray" name="front_left_sensor">
+			<pose>0 0 0 0 0 0</pose>
+			<visualize>false</visualize>
+			<update_rate>25.0</update_rate>
+			<plugin name="front_left_sensor_data" filename="libgazebo_laser_pointcloud2.so">
+				<updateRate>25.0</updateRate>
+				<frameName>zoe/lux_left</frameName>
+				<topicName>/zoe/lux_left</topicName>
+			</plugin>
+			<ray>
+				<scan>
+					<horizontal>
+						<samples>201</samples>
+						<resolution>1.0</resolution>
+						<min_angle>-0.872664630413</min_angle>
+						<max_angle>0.872664630413</max_angle>
+					</horizontal>
+					<vertical>
+						<samples>4</samples>
+						<resolution>1.0</resolution>
+						<min_angle>-0.012217</min_angle>
+						<max_angle>0.00872654</max_angle>
+					</vertical>
+				</scan>
+				<range>
+					<min>0.05</min>
+					<max>150.0</max>
+					<resolution>0.01</resolution>
+				</range>
+			</ray>
+		</sensor>
+	</gazebo>
+  
+	<gazebo reference="lux_right">
+		<sensor type="ray" name="front_right_sensor">
+			<pose>0 0 0 0 0 0</pose>
+			<visualize>false</visualize>
+			<update_rate>25.0</update_rate>
+			<plugin name="front_right_sensor_data" filename="libgazebo_laser_pointcloud2.so">
+				<updateRate>25.0</updateRate>
+				<frameName>zoe/lux_right</frameName>
+				<topicName>/zoe/lux_right</topicName>
+			</plugin>
+			<ray>
+				<scan>
+					<horizontal>
+						<samples>201</samples>
+						<resolution>1.0</resolution>
+						<min_angle>-0.872664630413</min_angle>
+						<max_angle>0.872664630413</max_angle>
+					</horizontal>
+					<vertical>
+						<samples>4</samples>
+						<resolution>1.0</resolution>
+						<min_angle>-0.012217</min_angle>
+						<max_angle>0.00872654</max_angle>
+					</vertical>
+				</scan>
+				<range>
+					<min>0.05</min>
+					<max>150.0</max>
+					<resolution>0.01</resolution>
+				</range>
+			</ray>
+		</sensor>
+	</gazebo>
+  
+	<gazebo reference="lux_rear">
+		<sensor type="ray" name="rear_center_sensor">
+			<pose>0 0 0 0 0 0</pose>
+			<visualize>false</visualize>
+			<update_rate>25.0</update_rate>
+			<plugin name="rear_center_sensor_data" filename="libgazebo_laser_pointcloud2.so">
+				<updateRate>25.0</updateRate>
+				<frameName>zoe/lux_rear</frameName>
+				<topicName>/zoe/lux_rear</topicName>
+			</plugin>
+			<ray>
+				<scan>
+					<horizontal>
+						<samples>201</samples>
+						<resolution>1.0</resolution>
+						<min_angle>-0.872664630413</min_angle>
+						<max_angle>0.872664630413</max_angle>
+					</horizontal>
+					<vertical>
+						<samples>4</samples>
+						<resolution>1.0</resolution>
+						<min_angle>-0.012217</min_angle>
+						<max_angle>0.00872654</max_angle>
+					</vertical>
+				</scan>
+				<range>
+					<min>0.05</min>
+					<max>150.0</max>
+					<resolution>0.01</resolution>
+				</range>
+			</ray>
+		</sensor>
+	</gazebo>
+
+	<?needbase 
+		<!-- GPS plugin -->
+	<!-- Hector Gazebo GPS plugin is used. See http://wiki.ros.org/hector_gazebo_plugins -->
+	<!-- To install use: -->
+	<!-- $ sudo apt-get install ros-DISTRIBUTION-hector-gazebo-plugins -->
+      <link name="group1/gps">
+		<inertial>
+			<origin rpy="0 0 0" xyz="0 0 0"/>
+			<mass value="0.1"/>
+			<inertia ixx="0.000904524377773" ixy="0.0" ixz="0.0" iyy="0.000904524377773" iyz="0.0" izz="0.0001423828125"/>
+		</inertial>
+	</link>
+	<joint name="gps_position" type="fixed">
+		<origin rpy="0 0.00 0.00" xyz="-3.34 0 0.34"/>
+            <parent link="group1/base_link"/>
+            <child link="group1/gps"/>
+	</joint>
+
+	<gazebo> <!--reference="gps"> -->
+		<plugin name="gps_data" filename="libhector_gazebo_ros_gps.so">
+		    <alwayson>true</alwayson>
+		    <updateRate>10</updateRate>
+		    <bodyName>gps</bodyName>
+		    <frameId>zoe/base_imu</frameId>
+		    <referenceLatitude>48.625867</referenceLatitude>
+		    <referenceLongitude>1.796803</referenceLongitude>
+		    <referenceHeading>90</referenceHeading><!-- geographic heading(North) of gazebo frame's x axis in degrees, we are following enu coordinate system. North is at 90 degrees of x axiss -->
+		    <topicName>/zoe/fix</topicName>
+		    <velocityTopicName>/zoe/fix_velocity</velocityTopicName>
+		    <!-- <drift>0 0 0</drift>
+		    <gaussiannoise>0 0.0 0.0</gaussiannoise> -->
+		    <drift>0.0 0.0 0.0</drift>
+		    <gaussianNoise>0.0 0.0 0.0</gaussianNoise>
+		    <velocityDrift>0.0 0.0 0.0</velocityDrift>
+		    <velocityGaussianNoise>0.0 0.0 0.0</velocityGaussianNoise>
+		</plugin>
+	</gazebo>
+	?>
+	
+
+		<!-- Camera plugin-->
+	<joint name="camera_joint" type="fixed">
+	  <axis xyz="1 0 0" />
+	  <origin xyz="-1.62 0.05 1.35" rpy="0. 0. 0."/>
+        <parent link="group1/base_link"/>
+        <child link="group1/camera_link"/>
+	</joint>
+
+      <link name="group1/camera_link">
+	<visual>
+	<origin xyz="0 0 0" rpy="0 0 0"/>
+	<geometry>
+	  <box size="0.05 0.05 0.05"/>
+	</geometry>
+	<material name="red"/>
+	</visual>
+	</link>
+
+	<gazebo reference="camera_link">
+	  <sensor type="camera" name="camera_front">
+	    <pose>0 0 0 0 0 0</pose>
+	    <update_rate>30.0</update_rate>
+	    <camera name="head">
+	      <horizontal_fov>1.26</horizontal_fov>
+	      <image>
+                <height>1024</height>
+                <width>1280</width>
+                <format>R8G8B8</format>
+              </image>
+	      <clip>
+                <near>0.02</near>
+                <far>300</far>
+	      </clip>
+	      <distortion>
+		<center> 0.8 0.5</center>
+	      </distortion>
+	    </camera>
+            <plugin name="camera_controller" filename="libgazebo_ros_camera.so">
+              <alwaysOn>true</alwaysOn>
+              <updateRate>0.0</updateRate>
+              <cameraName>zoe/camera_front</cameraName>
+              <imageTopicName>image_color/raw</imageTopicName>
+              <cameraInfoTopicName>camera_info</cameraInfoTopicName>
+              <frameName>/zoe/camera_front</frameName>
+              <hackBaseline>0.07</hackBaseline>
+              <distortionK1>0.0</distortionK1>
+              <distortionK2>0.0</distortionK2>
+              <distortionK3>0.0</distortionK3>
+              <distortionT1>0.0</distortionT1>
+              <distortionT2>0.0</distortionT2>
+            </plugin>
+          </sensor>
+	</gazebo>
+
+</robot>

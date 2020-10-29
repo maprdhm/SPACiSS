@@ -1,0 +1,51 @@
+<launch>
+  <arg name="kbd_teleop" default="false"/>
+  <arg name="rqt_teleop" default="false"/>
+  <arg name="visualize" default="true"/>
+  <arg name="with_robot" default="true"/>
+
+  <arg name="simulation_factor" default="1.0"/> <!-- Speed up -->
+  <arg name="update_rate" default="25.0"/> <!-- Hz -->
+
+  <arg name="robot_description" default="$(find experimental_package)/models/zoe/urdf/zoe.urdf"/>
+
+  <!-- Simulator -->
+  <include file="$(find pedsim_simulator)/launch/simulator.launch">
+    <arg name="kbd_teleop" value="$(arg kbd_teleop)"/>
+    <arg name="rqt_teleop" value="$(arg rqt_teleop)"/>
+    <arg name="scene_file" value="$(find experimental_package)scenarios/city_center/shared_space.xml"/>
+    <arg name="with_robot" value="$(arg with_robot)"/>
+    <arg name="robot_description" value="$(arg robot_description)"/>
+    <arg name="simulation_factor" value="$(arg simulation_factor)"/>
+    <arg name="update_rate" value="$(arg update_rate)"/>
+    <arg name="default_queue_size" value="10"/>
+    <arg name="max_robot_speed" value="3"/>
+    <arg name="robot_mode" value="2"/>
+    <arg name="enable_groups" value="true"/>
+    <arg name="group_size_lambda" default="1.2"/>
+    <arg name="groups_couples_proportion" default="0.3"/>
+    <arg name="groups_friends_proportion" default="0.3"/>
+    <arg name="groups_families_proportion" default="0.3"/>
+    <arg name="groups_coworkers_proportion" default="0.1"/>
+    <arg name="pose_initial_x" value="-30"/>
+    <arg name="pose_initial_y" value="-5"/>
+    <arg name="pose_initial_theta" value="0.0"/>
+  </include>
+
+   <!-- Create a transform sender for linking these frames: static_transform_publisher x y z yaw pitch roll frame_id child_frame_id period_in_ms -->
+   <node name="tf_footprint_base" pkg="tf" type="static_transform_publisher" args="2.040 0 0 0 0 0 base_footprint base_link 100"/>
+   <!-- Publish a static transformation between /odom and /map -->
+   <node name="tf" pkg="tf" type="static_transform_publisher" args="0 0 0 0 0 0 /odom /zoe_odom_origin 100" />
+
+   <!-- Create a timer to shutdown all nodes after a timelapse. -->
+   <node name="timer" pkg="experimental_package" type="timer" output="screen" required="true">
+      <param name="time" value="1000" type="double"/>
+   </node>
+
+
+  <!-- Visualizer -->
+  <include file="$(find pedsim_visualizer)/launch/visualizer.launch"/>
+
+  <!-- Rviz -->
+  <node pkg="rviz" type="rviz" name="rviz" args="-d $(find pedsim_simulator)/rviz/with_robot.rviz" if="$(arg visualize)"/>
+</launch>

@@ -1,0 +1,35 @@
+<launch>
+    <arg name="pose_initial_x" default="-60"/>
+    <arg name="pose_initial_y" default="0.0"/>
+    <arg name="pose_initial_theta" default="0.0"/>
+
+   <!-- Only one timer per roslaunch possible (all simulation in a launch will have the same duration -->
+   <node name="timer" pkg="experimental_package" type="timer" output="screen" required="true">
+      <param name="time" value="1000" type="int"/>
+   </node>
+
+    <group ns="group1">
+        <arg name="ns" default="group1" />
+
+        <include file="$(find experimental_package)/launch/business_area.launch">
+          <arg name="pose_initial_x" value="$(arg pose_initial_x)"/>
+          <arg name="pose_initial_y" value="$(arg pose_initial_y)"/>
+          <arg name="pose_initial_theta" value="$(arg pose_initial_theta)"/>
+          <arg name="max_robot_speed" value="4"/>
+          <arg name="ns" value="$(arg ns)"/>
+        </include>
+    </group>
+
+    <group ns="group2">
+        <arg name="ns" default="group2" />
+
+        <include file="$(find experimental_package)/launch/business_area.launch">
+          <arg name="pose_initial_x" value="$(arg pose_initial_x)"/>
+          <arg name="pose_initial_y" value="$(arg pose_initial_y)"/>
+          <arg name="pose_initial_theta" value="$(arg pose_initial_theta)"/>
+          <arg name="max_robot_speed" value="2"/>
+          <arg name="ns" value="$(arg ns)"/>
+        </include>
+    </group>
+
+</launch>
