@@ -1254,12 +1254,15 @@ void Agent::processCarInformation(const Agent* car)
            // ROS_INFO_STREAM(id<<"tttuuuurn");
          }
          else{
+            // Bearing angle considers the AV size now !!
+            Ped::Tvector carFront = Ped::Tvector(car->p.x + car->ellipseThickness/2 * (car->getVelocity().normalized().x),
+                                    car->p.y + car->ellipseThickness/2 * (car->getVelocity().normalized().y));
             // Bearing angle from ped point of view
-            Ped::Tangle bearingAngle = pedVelo.angleTo(car->p - pedPos);
-            double bearingAngleDeriv = (car->p - pedPos).angleTo((car->p - pedPos)+(Ped::Tvector(carvx, carvy) - pedVelo)).toRadian();
+            Ped::Tangle bearingAngle = pedVelo.angleTo(carFront - pedPos);
+            double bearingAngleDeriv = (carFront - pedPos).angleTo((carFront - pedPos)+(Ped::Tvector(carvx, carvy) - pedVelo)).toRadian();
             // Bearing angle from car point of view
-            Ped::Tangle bearingAngleC = (Ped::Tvector(carvx, carvy).angleTo(pedPos-car->p));
-            double bearingAngleDerivC = (pedPos-car->p).angleTo((pedPos-car->p)+(pedVelo-Ped::Tvector(carvx, carvy))).toRadian();
+            Ped::Tangle bearingAngleC = (Ped::Tvector(carvx, carvy).angleTo(pedPos-carFront));
+            double bearingAngleDerivC = (pedPos-carFront).angleTo((pedPos-carFront)+(pedVelo-Ped::Tvector(carvx, carvy))).toRadian();
 
             // if both converge/diverge -> already crossed
             if((bearingAngle.sign()*bearingAngleDeriv<0 && bearingAngleC.sign()*bearingAngleDerivC<0) || (bearingAngle.sign()*bearingAngleDeriv>0 && bearingAngleC.sign()*bearingAngleDerivC>0)){
