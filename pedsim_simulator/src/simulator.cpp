@@ -159,12 +159,13 @@ bool Simulator::initializeSimulation()
   nh_.param<double>("simulation_factor", CONFIG.simulationFactor, 1.0);
   nh_.param<double>("probability_random_stop", CONFIG.probability_random_stop, 0.005);
   nh_.param<bool>("enable_distraction", CONFIG.distraction_enabled, false);
+
   nh_.param<double>("angle_frontal_collision_risk", CONFIG.angleFrontalCollisionRisk, 25.0);
-  nh_.param<double>("danger_radius", CONFIG.dangerRadius, 0.5);
-  nh_.param<double>("risk_radius", CONFIG.riskRadius, 1.0);
+  nh_.param<double>("danger_radius", CONFIG.dangerRadius, 0.45);
+  nh_.param<double>("risk_radius", CONFIG.riskRadius, 1.4);
   nh_.param<double>("ttc_low", CONFIG.ttcLow, -1.0);
   nh_.param<double>("ttc_up", CONFIG.ttcUp, 5.0);
-  nh_.param<double>("ttc_stop", CONFIG.ttcStop, 1.5);
+  nh_.param<double>("ttc_stop", CONFIG.ttcStop, 2.0);
   nh_.param<double>("hesitation_threshold", CONFIG.hesitationThreshold, 0.1);
 
   paused_ = false;

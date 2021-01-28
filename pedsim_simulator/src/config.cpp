@@ -65,12 +65,13 @@ Config::Config(QObject* parent)
   wait_time_beta = 0.2;
   probability_random_stop = 0.0;
   distraction_enabled = false;
+
   angleFrontalCollisionRisk = 25.0;
-  dangerRadius = 0.5;
-  riskRadius = 1.0;
+  dangerRadius = 0.45;
+  riskRadius = 1.4;
   ttcLow = -1.0;
   ttcUp = 5.0;
-  ttcStop = 1.5;
+  ttcStop = 2.0;
   hesitationThreshold = 0.1;
 
   ns = "";

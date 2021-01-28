@@ -37,11 +37,11 @@
   <arg name="groups_coworkers_proportion" default="0.0"/>
 
   <arg name="angle_frontal_collision_risk" default="25.0"/>
-  <arg name="danger_radius" default="0.5"/>
-  <arg name="risk_radius" default="1.0"/>
+  <arg name="danger_radius" default="0.45"/>
+  <arg name="risk_radius" default="1.4"/>
   <arg name="ttc_low" default="-1.0"/>
   <arg name="ttc_up" default="5.0"/>
-  <arg name="ttc_stop" default="1.5"/>
+  <arg name="ttc_stop" default="2.0"/>
   <arg name="hesitation_threshold" default="0.1"/>
   <arg name="ns" default=""/>
 
