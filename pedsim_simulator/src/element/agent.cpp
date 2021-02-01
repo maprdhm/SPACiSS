@@ -484,31 +484,24 @@ void Agent::move(double h)
 
   if (getType() == Ped::Tagent::ROBOT)
   {
-    if (CONFIG.robot_mode == RobotMode::TELEOPERATION)
-    {
-      // NOTE: Moving is now done by setting x, y position directly in
-      // simulator.cpp
-      // Robot's vx, vy will still be set for the social force model to work
-      // properly wrt. other agents.
+     if (CONFIG.robot_mode == RobotMode::TELEOPERATION || CONFIG.robot_mode == RobotMode::CONTROLLED)
+     {
+       // NOTE: Moving is now done by setting x, y position directly in
+       // simulator.cpp
+       // Robot's vx, vy will still be set for the social force model to work
+       // properly wrt. other agents.
 
-      // FIXME: This is a very hacky way of making the robot "move" (=update
-      // position in hash tree) without actually moving it
-      const double vx = getvx();
-      const double vy = getvy();
+       // FIXME: This is a very hacky way of making the robot "move" (=update
+       // position in hash tree) without actually moving it
+       const double vx = getvx();
+       const double vy = getvy();
 
-      setvx(0);
-      setvy(0);
-      realisticMove(h);
-      setvx(vx);
-      setvy(vy);
-    }
-    else if (CONFIG.robot_mode == RobotMode::CONTROLLED)
-    {
-      if (SCENE.getTime() >= CONFIG.robot_wait_time)
-      {
-        realisticMove(h);
-      }
-    }
+       setvx(0);
+       setvy(0);
+       realisticMove(h);//Ped::Tagent::move(h);
+       setvx(vx);
+       setvy(vy);
+     }
     else if (CONFIG.robot_mode == RobotMode::SOCIAL_DRIVE)
     {
       realisticMove(h);
