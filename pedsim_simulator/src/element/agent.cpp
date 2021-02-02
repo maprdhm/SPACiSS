@@ -1072,7 +1072,7 @@ double Agent::getRadius(Ped::Tangle angle, double margin) const
        if(abs(angle.toDegree())>90.0)
           ellipseTh += 2.0*margin; // back
        else
-          ellipseTh += 5.0*margin; // front
+          ellipseTh += 2.0*margin; // front
        ellipseW = ellipseWidth + 2.0*margin; //side
    }
 
@@ -1262,6 +1262,7 @@ void Agent::processCarInformation(const Agent* car)
                //ROS_INFO_STREAM("already crossed");
                this->isStopped = false;
                this->isSteppingBack=false;
+               this->isRunning=false;
             }
 
            else{
