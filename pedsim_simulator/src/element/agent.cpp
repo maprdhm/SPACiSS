@@ -82,6 +82,8 @@ Agent::Agent()
   isStopped = false;
   isSteppingBack = false;
   emergencyStop = false;
+  perceiveAV = false;
+  collideAV = false;
 }
 
 void Agent::initializePedestrianValues(){
@@ -132,16 +134,27 @@ void Agent::computeForces()
     obstacleforce = obstacleForce();
   myforce = myForce(desiredDirection);
 
-  bool carPerceived = false;
+  collideAV = false;
   for (auto neighbor : getNeighbors())
   {
+     if (neighbor->id == id)
+        continue;
      if (neighbor->getType() == ROBOT){
-      //  ROS_INFO_STREAM("PEDESTRIAN ID " << getId() << "PERCEIVES A CAR ID" << neighbor->getId());
-      processCarInformation(neighbor);
-      carPerceived = true;
-     }
-  }
-  if (!carPerceived) {
+         processCarInformation(neighbor);
+
+         // is agent colliding with AV ?
+         Ped::Tvector diff = neighbor->p - p;
+         double physicalDistance = diff.length() -
+               (this->getRadius(v.angleTo(diff),0.0) + neighbor->getRadius(neighbor->getWalkingDirection().angleTo(-diff),0.0));
+           if(physicalDistance <= 0.0){
+              collideAV = true;
+              v = physicalForce();
+              ROS_INFO_STREAM(id << " COLLIDE");
+           }
+      }
+   }
+
+  if (!perceiveAV) {
      this->isRunning = false;
      this->isStopped = false;
      this->isSteppingBack = false;
@@ -168,13 +181,6 @@ Ped::Tvector Agent::desiredForce()
 
 Ped::Tvector Agent::socialForce() const
 {
-   /*Ped::Tvector force;
-   if (!disabledForces.contains("Social"))
-     force = Tagent::socialForce();
-   emit desiredForceChanged(force.x, force.y);
-   return force;*/
-
-
   Ped::Tvector force;
   if (!disabledForces.contains("Social")){
 
@@ -193,12 +199,6 @@ Ped::Tvector Agent::socialForce() const
      // define speed interaction
      // (set according to Moussaid-Helbing 2009)
      double n_prime = 3;
-
-     // define body force factor
-     double k_body = 12.0;
-
-     // define sliding friction force factor
-     double k_slidding = 24.0;
 
      //QSet <const AgentGroup*> perceivedGroups;
      QList <const Agent*> agents = this->getNeighbors();
@@ -285,35 +285,68 @@ Ped::Tvector Agent::socialForce() const
        }
 
        force += forceVelocity + forceAngle;
-
-        // When collide
-       // from Helbing et al., ‘Simulating Dynamical Features of Escape Panic’, 2000.
-       if(physicalDistance <= 0)
-       {
-          if(abs(physicalDistance) <= 0.001)
-             physicalDistance = 0.1;
-
-          double kbd=k_body;
-          double ksl=k_slidding;
-          if(other->getType() == ROBOT){
-             kbd=k_body*1000;
-             ksl=k_slidding*1000;
-          }
-          // body force
-          force += kbd * -physicalDistance * -diffDirection;
-
-          // sliding friction force
-           force += ksl * -physicalDistance
-                 * Ped::Tvector::dotProduct(velDiff, (-diffDirection).leftNormalVector())
-                 * (-diffDirection).leftNormalVector();
-       }
      }
+
+     // Cas où 2 agents se touchent
+    // from Helbing et al., ‘Simulating Dynamical Features of Escape Panic’, 2000.
+    force += this->physicalForce();
   }
 
   // inform users
   emit socialForceChanged(force.x, force.y);
 
   return force;
+}
+
+Ped::Tvector Agent::physicalForce() const
+{
+   Ped::Tvector force;
+
+   // define body force factor
+   double k_body = 12.0;
+
+   // define sliding friction force factor
+   double k_slidding = 24.0;
+
+   QList <const Agent*> agents = this->getNeighbors();
+
+   for (const Agent* other : agents)
+   {
+     // don't compute social force to yourself
+     if (other->id == id)
+       continue;
+
+      // compute difference between both agents' positions
+      Ped::Tvector diff = other->p - p;
+      Ped::Tvector diffDirection = diff.normalized();
+      // compute difference between both agents' velocity vectors
+      Ped::Tvector velDiff = v - other->v;
+
+      // Distance without personal spaces (only body shapes)
+      double physicalDistance = diff.length() - (this->getRadius(v.angleTo(diff),0.0) +
+                                                 other->getRadius(other->getWalkingDirection().angleTo(-diff),0.0));
+      if(physicalDistance <= 0)
+      {
+         if(abs(physicalDistance) <= 0.001)
+            physicalDistance = 0.1;
+
+         double kbd = k_body;
+         double ksl = k_slidding;
+
+         if(other->getType() == ROBOT){
+            kbd = k_body*1000;
+            ksl = k_slidding*1000;
+         }
+         // body force
+         force += kbd * -physicalDistance * -diffDirection;
+
+         // sliding friction force
+          force -= ksl * -physicalDistance
+                * Ped::Tvector::dotProduct(velDiff, (-diffDirection).leftNormalVector())
+                * (-diffDirection).leftNormalVector();
+      }
+   }
+   return force;
 }
 
 Ped::Tvector Agent::obstacleForce() const
@@ -899,7 +932,7 @@ void Agent::setType(Ped::Tagent::AgentType typeIn)
      this->setAttentionAngle(Ped::Tangle::fromDegree(ATTENTION_ANGLE_AV));
      this->setAttentionDistance(ATTENTION_DISTANCE_AV);
      this->setForceFactorSocial(CONFIG.forceSocial *10);
-     this->setForceFactorObstacle(CONFIG.forceObstacle*2);
+     this->setForceFactorObstacle(CONFIG.forceObstacle*5);
      this->setDistraction(0.0);
   }
   else{
@@ -952,6 +985,27 @@ void Agent::setPurpose(AgentPurpose purposeIn)
    emit purposeChanged(purposeIn);
 }
 
+bool Agent::isPerceivingAV() const{
+   return perceiveAV;
+}
+
+string Agent::getDecision() const{
+   if (isStopped)
+      return "stop";
+   else if (isRunning)
+      return "run";
+   else if (isSteppingBack)
+      return "back";
+   else return "-";
+
+}
+
+bool Agent::isCollidingAV() const{
+   return collideAV;
+}
+
+
+
 double Agent::getDistraction() const{
    return distraction;
 }
@@ -964,11 +1018,8 @@ void Agent::setDistraction(double distractionIn){
       distractionIn = 0.0;
 
    // While car is perceived: not distracted
-   for (auto neighbor : getNeighbors()){
-      if (neighbor->getType() == ROBOT){
-         distractionIn = 0.0;
-         break;
-      }
+   if(perceiveAV){
+      distractionIn = 0.0;
    }
    double distractionLimited = max(min(distractionIn, 1.0), 0.0);
    this->distraction = distractionLimited;
@@ -1121,6 +1172,7 @@ QList<const Agent*> Agent::updatePerceivedNeighbors()
   QList<const Agent*> perceived;
   set<const Ped::Tagent*> neighborsSet;
 
+  this->perceiveAV = false;
   double angle = getVisionAngleDeg();
   double visionDistance = getVisionDistance();
 
@@ -1133,6 +1185,10 @@ QList<const Agent*> Agent::updatePerceivedNeighbors()
     if (perceiveAgent(upNeighbor, visionDistance, angle)){
         perceived.append(upNeighbor);
         neighborsSet.insert(upNeighbor);
+        if (upNeighbor->getType() == ROBOT){
+           // ROS_INFO_STREAM("PEDESTRIAN ID " << getId() << "PERCEIVES A CAR ID" << neighbor->getId());
+            this->perceiveAV = true;
+        }
     }
   }
   this->neighbors = neighborsSet;
@@ -1243,7 +1299,7 @@ void Agent::processCarInformation(const Agent* car)
             Ped::Tvector diffDirection = (pedPos-car->p).normalized();
             Ped::Tangle angle = car->v.angleTo(diffDirection);
             Ped::Tvector turnVector = angle.sign() * car->v.leftNormalVector();
-            socialforce = turnVector;
+            socialforce = turnVector + physicalForce();
            // ROS_INFO_STREAM(id<<"tttuuuurn");
          }
          else{
@@ -1266,7 +1322,7 @@ void Agent::processCarInformation(const Agent* car)
             }
 
            else{
-            //ROS_INFO_STREAM(id<<" "<<bearingAngle.sign()*bearingAngleDeriv);
+            //ROS_INFO_STREAM(id<<" "<<bearingAngle.sign()*bearingAngleDeriv<<" "<<bearingAngleC.sign()*bearingAngleDerivC);
             if(!isSteppingBack &&!isRunning && !isStopped && fabs(bearingAngleDeriv) <= hesitationThreshold)
             {
               // ROS_INFO_STREAM("hesitation: run or stop");
@@ -1328,7 +1384,7 @@ void Agent::processCarInformation(const Agent* car)
                }
             }
           }
-         }
+      }
       }
       else if (isSteppingBack){
         this->isSteppingBack = false;
@@ -1365,19 +1421,19 @@ void Agent::processCarInformation(const Agent* car)
 
    // action: run or stop
    if (isRunning){
-      socialforce = Ped::Tvector();
+      socialforce = physicalForce();
       if(isInGroup())
          desiredforce = (group->getWalkingDirection().normalized().scaled(runVmax) - v)/relaxationTime;
       else desiredforce = (v.normalized().scaled(runVmax) - v)/relaxationTime;
    }
    else if (isSteppingBack)
    {
-      socialforce = Ped::Tvector();
+      socialforce =  physicalForce();
       desiredforce = -desiredforce;
       this->isStopped = false;
    }
    else if (isStopped){
-     socialforce = Ped::Tvector();
+     socialforce =  physicalForce();
      if(ttc<ttcStop){
          desiredforce = (-v/relaxationTime);
      }
@@ -1405,12 +1461,9 @@ void Agent::wantRun(){
  */
 bool Agent::giveAttentionTo(const Agent* neighbor) const
 {
-   // TO DO: replace by attribute carPerceived
-   for (auto neighbor : getNeighbors())
-   {
-      if (neighbor->getType() == ROBOT)
-         return false;
-   }
+   if (perceiveAV)
+      return false;
+
     if (this->getNeighbors().contains(neighbor))
     {
       Ped::Tvector neighborDirection = neighbor->p - p;

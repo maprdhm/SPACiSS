@@ -137,6 +137,7 @@ public:
   void computeForces();
   Ped::Tvector desiredForce();
   Ped::Tvector socialForce() const;
+  Ped::Tvector physicalForce() const;
   Ped::Tvector groupSocialForce(QSet <const AgentGroup*> perceivedGroups) const;
   Ped::Tvector obstacleForce() const;
   Ped::Tvector myForce(Ped::Tvector desired) const;
@@ -201,6 +202,8 @@ protected:
   double visionDistance;
   double attentionDistance;
   double distraction;
+  bool perceiveAV;
+  bool collideAV;
   bool isRunning;
   bool isStopped;
   bool isSteppingBack;
@@ -233,6 +236,9 @@ public:
   double getVisionArea() const;
   void setVmax(double);
   void setRunVmax(double);
+  bool isPerceivingAV() const;
+  string getDecision() const;
+  bool isCollidingAV() const;
 
    bool perceiveAgent(const Agent* perceived, double distanceMax, double angleViewDegree) const;
    void perceiveOtherAgents();
