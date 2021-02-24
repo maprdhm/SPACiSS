@@ -1298,7 +1298,7 @@ void Agent::processCarInformation(const Agent* car)
 
             Ped::Tvector diffDirection = (pedPos-car->p).normalized();
             Ped::Tangle angle = car->v.angleTo(diffDirection);
-            Ped::Tvector turnVector = angle.sign() * car->v.leftNormalVector();
+            Ped::Tvector turnVector = angle.sign() * car->v.leftNormalVector().normalized();
             socialforce = turnVector + physicalForce();
            // ROS_INFO_STREAM(id<<"tttuuuurn");
          }
