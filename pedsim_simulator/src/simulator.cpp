@@ -329,6 +329,11 @@ void Simulator::updateRobotPositionFromTF()
     const double dt = tfTransform.stamp_.toSec() - last_robot_pose_.stamp_.toSec();
     double vx = dx / dt, vy = dy / dt;
 
+    if(std::hypot(vx, vy)<0.0001){
+       vx = (robot_->getWalkingDirection().normalized()*0.0001).x;
+       vy = (robot_->getWalkingDirection().normalized()*0.0001).y;
+    }
+
     if (!std::isfinite(vx))
       vx = 0;
     if (!std::isfinite(vy))
