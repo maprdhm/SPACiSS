@@ -1245,7 +1245,6 @@ void Agent::processCarInformation(const Agent* car)
    double carx = car->getPosition().x;
    double cary = car->getPosition().y;
 
-
    // Velocity vector of pedestrian with his ideal speed
    Ped::Tvector pedIdealVelocity = this->getVelocity().normalized().scaled(vmax);
   if(isSteppingBack)
@@ -1304,17 +1303,24 @@ void Agent::processCarInformation(const Agent* car)
          }
          else{
             // Bearing angle considers the AV size now !!
-            Ped::Tvector carFront = Ped::Tvector(car->p.x + car->ellipseThickness/2 * (car->getVelocity().normalized().x),
-                                    car->p.y + car->ellipseThickness/2 * (car->getVelocity().normalized().y));
+            Ped::Tvector carNearestSide = Ped::Tvector(car->p.x + (car->getRadius((Ped::Tvector(carvx, carvy).angleTo(pedPos-car->p)),0.0) * (pedPos-car->p)).x/*(car->getVelocity().normalized().x)*/,
+                                  car->p.y + (car->getRadius((Ped::Tvector(carvx, carvy).angleTo(pedPos-car->p)),0.0) * (pedPos-car->p)).y);
             // Bearing angle from ped point of view
-            Ped::Tangle bearingAngle = pedVelo.angleTo(carFront - pedPos);
-            double bearingAngleDeriv = (carFront - pedPos).angleTo((carFront - pedPos)+(Ped::Tvector(carvx, carvy) - pedVelo)).toRadian();
+            Ped::Tangle bearingAngle = pedVelo.angleTo(carNearestSide - pedPos);
+            double bearingAngleDeriv = (carNearestSide - pedPos).angleTo((carNearestSide - pedPos)+(Ped::Tvector(carvx, carvy) - pedVelo)).toRadian();
             // Bearing angle from car point of view
-            Ped::Tangle bearingAngleC = (Ped::Tvector(carvx, carvy).angleTo(pedPos-carFront));
-            double bearingAngleDerivC = (pedPos-carFront).angleTo((pedPos-carFront)+(pedVelo-Ped::Tvector(carvx, carvy))).toRadian();
+            Ped::Tangle bearingAngleC = (Ped::Tvector(carvx, carvy).angleTo(pedPos-carNearestSide));
+            double bearingAngleDerivC = (pedPos-carNearestSide).angleTo((pedPos-carNearestSide)+(pedVelo-Ped::Tvector(carvx, carvy))).toRadian();
+
+            double cx = ((this->getx()+pedIdealVelocity.x*ttc)*this->agentRadius + (car->getx()+carvx*ttc)*car->agentRadius)/radiusDanger;
+            double cy = ((this->gety()+pedIdealVelocity.y*ttc)*this->agentRadius + (car->gety()+carvy*ttc)*car->agentRadius)/radiusDanger;
+            Ped::Tvector collisionPoint = Ped::Tvector(cx, cy);
+            Ped::Tvector pedToColl = collisionPoint - Ped::Tvector(this->getx()+pedIdealVelocity.x * ttc,this->gety()+pedIdealVelocity.y * ttc);
 
             // if both converge/diverge -> already crossed
-            if((bearingAngle.sign()*bearingAngleDeriv<0 && bearingAngleC.sign()*bearingAngleDerivC<0) || (bearingAngle.sign()*bearingAngleDeriv>0 && bearingAngleC.sign()*bearingAngleDerivC>0)){
+            if((bearingAngle.sign()*bearingAngleDeriv<0 && bearingAngleC.sign()*bearingAngleDerivC<0)
+                  || (bearingAngle.sign()*bearingAngleDeriv>0 && bearingAngleC.sign()*bearingAngleDerivC>0)
+                  ||abs(pedToColl.angleTo(this->getWalkingDirection()).toDegree())>90){
                //ROS_INFO_STREAM("already crossed");
                this->isStopped = false;
                this->isSteppingBack=false;
@@ -1378,14 +1384,13 @@ void Agent::processCarInformation(const Agent* car)
                   this->isSteppingBack=true;
                }
                else{
-                  //ROS_INFO_STREAM(id<< " stop");
                   this->wantStop();
                   this->isSteppingBack=false;
                }
             }
           }
       }
-      }
+       }
       else if (isSteppingBack){
         this->isSteppingBack = false;
         this->wantStop();
@@ -1430,7 +1435,6 @@ void Agent::processCarInformation(const Agent* car)
    {
       socialforce =  physicalForce();
       desiredforce = -desiredforce;
-      this->isStopped = false;
    }
    else if (isStopped){
      socialforce =  physicalForce();
@@ -1439,6 +1443,7 @@ void Agent::processCarInformation(const Agent* car)
      }
    }
 }
+
 
 /*
  * Agent wants to stop
