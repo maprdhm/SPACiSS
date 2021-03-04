@@ -1,0 +1,65 @@
+<!-- 0.05p/m²-->
+<scenario>
+   <waypoint id="dest" x="15" y="35" r="5" />
+   <waypoint id="farDest" x="15" y="100" r="5" />
+
+   <waypoint id="goal1" x="-30" y="5.0" r="2" />
+   <waypoint id="goal2" x="28" y="5.0" r="2"/>
+   <waypoint id="goal3" x="28" y="-25" r="2" />
+   <waypoint id="goal4" x="28" y="25" r="2" />
+   <waypoint id="goal5" x="-28" y="-25" r="2" />
+   <waypoint id="goal6" x="-28" y="25" r="2"/>
+   <waypoint id="goal7" x="0" y="-25" r="2"/>
+   <waypoint id="goal8" x="0" y="25" r="2" />
+
+   <obstacle id="obs1" x1="1" y1="0" x2="-1" y2="0" />
+   <attraction id="att1" x="0" y="-1.5" width="3" height="2" strength="2"/>
+   <attraction id="att2" x="0" y="1.5" width="3" height="2" strength="2"/>
+   <attraction id="att3" x="2.5" y="0" width="2" height="5" strength="2"/>
+   <attraction id="att4" x="-2.5" y="0" width="2" height="5" strength="2"/>
+   <obstacle id="obs2" x1="-26" y1="-25" x2="-26" y2="0" />
+   <obstacle id="obs3" x1="-26" y1="10" x2="-26" y2="25" />
+   <obstacle id="obs4" x1="26" y1="-5" x2="26" y2="15" />
+   <attraction id="att5" x="25" y="5" width="2" height="20" strength="2"/>
+   <obstacle id="obs5" x1="-10" y1="-26" x2="0" y2="-26" />
+
+
+   <agent x="0" y="10" n="9" dx="50" dy="30" type="0" purpose="1">
+         <addwaypoint id="goal1" />
+         <addwaypoint id="goal6" />
+   </agent>
+   <agent x="0" y="10" n="9" dx="50" dy="30" type="0" purpose="2">
+         <addwaypoint id="goal2" />
+         <addwaypoint id="goal8" />
+   </agent>
+   <agent x="0" y="10" n="9" dx="50" dy="30" type="0" purpose="1">
+         <addwaypoint id="goal3" />
+         <addwaypoint id="goal5" />
+   </agent>
+   <agent x="0" y="10" n="9" dx="50" dy="30" type="0" purpose="2">
+         <addwaypoint id="goal4" />
+         <addwaypoint id="goal2" />
+   </agent>
+   <agent x="0" y="10" n="9" dx="50" dy="30" type="0" purpose="1">
+         <addwaypoint id="goal5" />
+         <addwaypoint id="goal8" />
+   </agent>
+   <agent x="0" y="10" n="10" dx="50" dy="30" type="0" purpose="2">
+         <addwaypoint id="goal6" />
+         <addwaypoint id="goal5" />
+   </agent>
+   <agent x="0" y="10" n="10" dx="50" dy="30" type="0" purpose="1">
+         <addwaypoint id="goal7" />
+         <addwaypoint id="goal1" />
+   </agent>
+   <agent x="0" y="10" n="10" dx="50" dy="30" type="0" purpose="2">
+         <addwaypoint id="goal8" />
+         <addwaypoint id="goal4" />
+   </agent>
+
+   <agent x="15" y="-20" theta="1.57" n="1" type="2"> <!-- robot -->
+      <addwaypoint id="dest" />
+      <addwaypoint id="farDest" />
+   </agent>
+
+</scenario>

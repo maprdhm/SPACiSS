@@ -1,0 +1,39 @@
+<!-- 0.15p/m²-->
+<scenario>
+   <waypoint id="dest" x="15" y="35" r="5" />
+   <waypoint id="farDest" x="15" y="100" r="5" />
+
+   <waypoint id="goal1" x="-30" y="5.0" r="5" b="2" />
+
+   <obstacle id="obs1" x1="1" y1="0" x2="-1" y2="0" />
+   <attraction id="att1" x="0" y="-1.5" width="3" height="2" strength="2"/>
+   <attraction id="att2" x="0" y="1.5" width="3" height="2" strength="2"/>
+   <attraction id="att3" x="2.5" y="0" width="2" height="5" strength="2"/>
+   <attraction id="att4" x="-2.5" y="0" width="2" height="5" strength="2"/>
+   <obstacle id="obs2" x1="-26" y1="-25" x2="-26" y2="0" />
+   <obstacle id="obs3" x1="-26" y1="10" x2="-26" y2="25" />
+   <obstacle id="obs4" x1="26" y1="-5" x2="26" y2="15" />
+   <attraction id="att5" x="25" y="5" width="2" height="20" strength="2"/>
+   <obstacle id="obs5" x1="-10" y1="-26" x2="0" y2="-26" />
+
+   <agent x="0.0" y="5.0" theta="-3.14" n="37" dx="50" dy="10" type="0" purpose="1">
+      <addwaypoint id="goal1" />
+   </agent>
+   <agent x="0.0" y="5.0" theta="-3.14" n="38" dx="50" dy="10" type="0" purpose="2">
+      <addwaypoint id="goal1" />
+   </agent>
+
+   <source x="22" y="5.0" theta="-3.14" n="4" dx="5" dy="10" type="0" purpose="1">
+      <addwaypoint id="goal1" />
+   </source>
+   <source x="22" y="5.0" theta="-3.14" n="4" dx="5" dy="10" type="0" purpose="2">
+      <addwaypoint id="goal1" />
+   </source>
+
+
+   <agent x="15" y="-20" theta="1.57" n="1" type="2"> <!-- robot -->
+      <addwaypoint id="dest" />
+      <addwaypoint id="farDest" />
+   </agent>
+
+</scenario>
