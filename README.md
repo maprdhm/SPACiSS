@@ -112,7 +112,7 @@ For now, the social force is configured to make the AV go straight to its destin
 * robot controller node and move_base node
 * timer node to shutdown all nodes after a timelapse
 
-### Parameters for the simulation node
+### Parameters for the simulator node
 #### Simulation
 
 | Parameter  | Use | Default value | Possible values
@@ -156,6 +156,7 @@ For now, the social force is configured to make the AV go straight to its destin
 | groups_families_proportion  | Proportion of couples in groups  | 0.0 | double [0..1]  |
 | groups_coworkers_proportion  | Proportion of couples in groups  | 0.0 | double [0..1]  |
 
+<!--
 #### Forces
 | Parameter  | Use | Default value | Possible values
 | ------------- | ------------- | ------------- | ------------- |
@@ -167,7 +168,7 @@ For now, the social force is configured to make the AV go straight to its destin
 | force_group_gaze | Factor group_gaze force  | 3.0  | double  |
 | force_group_coherence | Factor group_coherence force. Changed to get more cohesive agents (initial default value: 2.0)  | 20.0 | double  |
 | force_group_repulsion | Facto group repulsion force to prevent from overlapping. Disabled, managed in social force.  | 0.0  | double  |
-
+-->
 
 <br/>
 
