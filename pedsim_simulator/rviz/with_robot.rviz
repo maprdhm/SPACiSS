@@ -6,7 +6,7 @@ Panels:
       Expanded:
         - /Global Options1
         - /Grid1/Offset1
-        - /Pedsim-Visuals1
+        - /Tracking-Visuals1
         - /Tracking-Visuals1/TrackedPersons1
         - /Tracking-Visuals1/TrackedPersons1/History as line1
         - /Tracking-Visuals1/TrackedGroups1
@@ -14,9 +14,8 @@ Panels:
         - /Odometry1/Covariance1
         - /Odometry1/Covariance1/Position1
         - /Odometry1/Covariance1/Orientation1
-        - /MarkerArray1
       Splitter Ratio: 0.677233458
-    Tree Height: 764
+    Tree Height: 344
   - Class: rviz/Selection
     Name: Selection
   - Class: rviz/Tool Properties
@@ -35,7 +34,7 @@ Panels:
     Experimental: false
     Name: Time
     SyncMode: 0
-    SyncSource: PointCloud
+    SyncSource: ""
 Toolbars:
   toolButtonStyle: 2
 Visualization Manager:
@@ -86,7 +85,7 @@ Visualization Manager:
           Font scale: 2
           History as line:
             Line width: 0.0500000007
-            Value: true
+            Value: false
           History size: 100
           Included person IDs: ""
           Min. history point distance: 0.400000006
@@ -97,7 +96,7 @@ Visualization Manager:
             Line width: 0.100000001
             Value: false
           Render detection IDs: false
-          Render history: true
+          Render history: false
           Render person visual: true
           Render track IDs: false
           Render track state: false
@@ -347,7 +346,7 @@ Visualization Manager:
   Views:
     Current:
       Class: rviz/XYOrbit
-      Distance: 72.2185516
+      Distance: 76.3254852
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.0599999987
         Stereo Focal Distance: 1
@@ -362,10 +361,10 @@ Visualization Manager:
       Invert Z Axis: false
       Name: Current View
       Near Clip Distance: 0.00999999978
-      Pitch: 1.25479639
+      Pitch: 1.56979632
       Target Frame: <Fixed Frame>
       Value: XYOrbit (rviz)
-      Yaw: 4.71546936
+      Yaw: 4.71046925
     Saved: ~
 Window Geometry:
   Displays:
