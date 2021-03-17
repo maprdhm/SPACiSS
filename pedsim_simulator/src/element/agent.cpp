@@ -334,7 +334,7 @@ Ped::Tvector Agent::physicalForce() const
          double ksl = k_slidding;
 
          if(other->getType() == ROBOT){
-            kbd = k_body*1000;
+            kbd = k_body*500;
             ksl = k_slidding*1000;
          }
          // body force
@@ -945,9 +945,6 @@ void Agent::setType(Ped::Tagent::AgentType typeIn)
        // Old people slow!
        this->setVmax(1.0);
        this->setForceFactorDesired(0.5);
-
-       riskRadius = 1.5;
-       dangerRadius = 1;
      }
   }
   // inform users
@@ -1302,9 +1299,9 @@ void Agent::processCarInformation(const Agent* car)
            // ROS_INFO_STREAM(id<<"tttuuuurn");
          }
          else{
-            // Bearing angle considers the AV size now !!
-            Ped::Tvector carNearestSide = Ped::Tvector(car->p.x + (car->getRadius((Ped::Tvector(carvx, carvy).angleTo(pedPos-car->p)),0.0) * (pedPos-car->p)).x/*(car->getVelocity().normalized().x)*/,
-                                  car->p.y + (car->getRadius((Ped::Tvector(carvx, carvy).angleTo(pedPos-car->p)),0.0) * (pedPos-car->p)).y);
+            // Bearing angle considers the AV size now + 2m margin!!
+            Ped::Tvector carNearestSide = Ped::Tvector(car->p.x + (car->getRadius((Ped::Tvector(carvx, carvy).angleTo(pedPos-car->p)),2.0) * (pedPos-car->p)).x/*(car->getVelocity().normalized().x)*/,
+                                  car->p.y + (car->getRadius((Ped::Tvector(carvx, carvy).angleTo(pedPos-car->p)),2.0) * (pedPos-car->p)).y);
             // Bearing angle from ped point of view
             Ped::Tangle bearingAngle = pedVelo.angleTo(carNearestSide - pedPos);
             double bearingAngleDeriv = (carNearestSide - pedPos).angleTo((carNearestSide - pedPos)+(Ped::Tvector(carvx, carvy) - pedVelo)).toRadian();
@@ -1375,7 +1372,6 @@ void Agent::processCarInformation(const Agent* car)
 
             // if ped will arrive first
             else if (bearingAngle.sign()*bearingAngleDeriv > hesitationThreshold || (bearingAngle.sign()*bearingAngleDeriv >=0.0 && isRunning)){
-               //ROS_INFO_STREAM(id<< " "<<"run");
                this->wantRun();
             }
             // if ped will arrive second
@@ -1433,17 +1429,16 @@ void Agent::processCarInformation(const Agent* car)
    }
    else if (isSteppingBack)
    {
-      socialforce =  physicalForce();
+      socialforce = - car->v.normalized() + physicalForce();
       desiredforce = -desiredforce;
    }
    else if (isStopped){
-     socialforce =  physicalForce();
+     socialforce = - car->v.normalized() + physicalForce();
      if(ttc<ttcStop){
          desiredforce = (-v/relaxationTime);
      }
    }
 }
-
 
 /*
  * Agent wants to stop
