@@ -1299,9 +1299,9 @@ void Agent::processCarInformation(const Agent* car)
            // ROS_INFO_STREAM(id<<"tttuuuurn");
          }
          else{
-            // Bearing angle considers the AV size now + 2m margin!!
-            Ped::Tvector carNearestSide = Ped::Tvector(car->p.x + (car->getRadius((Ped::Tvector(carvx, carvy).angleTo(pedPos-car->p)),2.0) * (pedPos-car->p)).x/*(car->getVelocity().normalized().x)*/,
-                                  car->p.y + (car->getRadius((Ped::Tvector(carvx, carvy).angleTo(pedPos-car->p)),2.0) * (pedPos-car->p)).y);
+            // Bearing angle considers the AV size now + 1m margin!!
+            Ped::Tvector carNearestSide = Ped::Tvector(car->p.x + (car->getRadius((Ped::Tvector(carvx, carvy).angleTo(pedPos-car->p)),1.0) * (pedPos-car->p)).x/*(car->getVelocity().normalized().x)*/,
+                                  car->p.y + (car->getRadius((Ped::Tvector(carvx, carvy).angleTo(pedPos-car->p)),1.0) * (pedPos-car->p)).y);
             // Bearing angle from ped point of view
             Ped::Tangle bearingAngle = pedVelo.angleTo(carNearestSide - pedPos);
             double bearingAngleDeriv = (carNearestSide - pedPos).angleTo((carNearestSide - pedPos)+(Ped::Tvector(carvx, carvy) - pedVelo)).toRadian();
