@@ -1300,8 +1300,8 @@ void Agent::processCarInformation(const Agent* car)
          }
          else{
             // Bearing angle considers the AV size now + 1m margin!!
-            Ped::Tvector carNearestSide = Ped::Tvector(car->p.x + (car->getRadius((Ped::Tvector(carvx, carvy).angleTo(pedPos-car->p)),1.0) * (pedPos-car->p)).x/*(car->getVelocity().normalized().x)*/,
-                                  car->p.y + (car->getRadius((Ped::Tvector(carvx, carvy).angleTo(pedPos-car->p)),1.0) * (pedPos-car->p)).y);
+            Ped::Tvector carNearestSide = Ped::Tvector(car->p.x + (car->getRadius((Ped::Tvector(carvx, carvy).angleTo(pedPos-car->p)),0.0) * (pedPos-car->p)).x/*(car->getVelocity().normalized().x)*/,
+                                  car->p.y + (car->getRadius((Ped::Tvector(carvx, carvy).angleTo(pedPos-car->p)),0.0) * (pedPos-car->p)).y);
             // Bearing angle from ped point of view
             Ped::Tangle bearingAngle = pedVelo.angleTo(carNearestSide - pedPos);
             double bearingAngleDeriv = (carNearestSide - pedPos).angleTo((carNearestSide - pedPos)+(Ped::Tvector(carvx, carvy) - pedVelo)).toRadian();
@@ -1429,14 +1429,15 @@ void Agent::processCarInformation(const Agent* car)
    }
    else if (isSteppingBack)
    {
-      socialforce = - car->v.normalized() + physicalForce();
+      socialforce = physicalForce();
       desiredforce = -desiredforce;
    }
    else if (isStopped){
-     socialforce = - car->v.normalized() + physicalForce();
-     if(ttc<ttcStop){
-         desiredforce = (-v/relaxationTime);
-     }
+      if(ttc<ttcStop){
+          socialforce = physicalForce();
+          desiredforce = (-v/relaxationTime);
+      }else
+         socialforce = -car->v.normalized() + physicalForce();
    }
 }
 
