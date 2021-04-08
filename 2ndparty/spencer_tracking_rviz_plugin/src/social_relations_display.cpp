@@ -66,7 +66,7 @@ void SocialRelationsDisplay::onInitialize()
       "Render negative relations", false, "Render negative person relations", this, SLOT(stylesChanged()));
 
   // Create a scene node for visualizing social relations
-  m_socialRelationsSceneNode = shared_ptr<Ogre::SceneNode>(scene_node_->createChildSceneNode());
+  m_socialRelationsSceneNode = boost::shared_ptr<Ogre::SceneNode>(scene_node_->createChildSceneNode());
 }
 
 SocialRelationsDisplay::~SocialRelationsDisplay()
@@ -93,15 +93,15 @@ void SocialRelationsDisplay::processMessage(const spencer_social_relation_msgs::
 
   foreach (const spencer_social_relation_msgs::SocialRelation& socialRelation, msg->elements)
   {
-    shared_ptr<CachedTrackedPerson> personTrack1 = m_trackedPersonsCache.lookup(socialRelation.track1_id);
-    shared_ptr<CachedTrackedPerson> personTrack2 = m_trackedPersonsCache.lookup(socialRelation.track2_id);
+    boost::shared_ptr<CachedTrackedPerson> personTrack1 = m_trackedPersonsCache.lookup(socialRelation.track1_id);
+    boost::shared_ptr<CachedTrackedPerson> personTrack2 = m_trackedPersonsCache.lookup(socialRelation.track2_id);
 
     // Cannot draw relations for tracks with unknown position
     if (!personTrack1 || !personTrack2)
       continue;
 
     // Create a new visual representation of the tracked person
-    shared_ptr<RelationVisual> relationVisual = shared_ptr<RelationVisual>(new RelationVisual);
+    boost::shared_ptr<RelationVisual> relationVisual = boost::shared_ptr<RelationVisual>(new RelationVisual);
     relationVisual->type = socialRelation.type;
     relationVisual->relationStrength = socialRelation.strength;
     m_relationVisuals.push_back(relationVisual);
@@ -113,7 +113,7 @@ void SocialRelationsDisplay::processMessage(const spencer_social_relation_msgs::
     const Ogre::Vector3& centerPosition = (position1 + position2) / 2.0;
 
     // Add line connecting the two tracks
-    shared_ptr<rviz::BillboardLine> relationLine(
+    boost::shared_ptr<rviz::BillboardLine> relationLine(
         new rviz::BillboardLine(context_->getSceneManager(), m_socialRelationsSceneNode.get()));
     relationLine->setMaxPointsPerLine(2);
     relationLine->addPoint(position1);
@@ -122,7 +122,7 @@ void SocialRelationsDisplay::processMessage(const spencer_social_relation_msgs::
 
     // Add relationship strength text
     stringstream ss;
-    shared_ptr<TextNode> relationText(new TextNode(context_->getSceneManager(), m_socialRelationsSceneNode.get()));
+    boost::shared_ptr<TextNode> relationText(new TextNode(context_->getSceneManager(), m_socialRelationsSceneNode.get()));
     ss.str("");
     ss << std::fixed << std::setprecision(0) << socialRelation.strength * 100 << "%";
     relationText->setCaption(ss.str());
@@ -141,13 +141,13 @@ void SocialRelationsDisplay::processMessage(const spencer_social_relation_msgs::
 
 void SocialRelationsDisplay::stylesChanged()
 {
-  foreach (shared_ptr<RelationVisual> relationVisual, m_relationVisuals)
+  foreach (boost::shared_ptr<RelationVisual> relationVisual, m_relationVisuals)
   {
     updateRelationVisualStyles(relationVisual);
   }
 }
 
-void SocialRelationsDisplay::updateRelationVisualStyles(shared_ptr<RelationVisual>& relationVisual)
+void SocialRelationsDisplay::updateRelationVisualStyles(boost::shared_ptr<RelationVisual>& relationVisual)
 {
   std::string typeFilter = m_relation_type_filter_property->getStdString();
   bool validRelationType = relationVisual->type.find(typeFilter) != std::string::npos;

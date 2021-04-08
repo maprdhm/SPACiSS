@@ -92,7 +92,7 @@ void DetectedPersonsDisplay::reset()
 // Set the rendering style (cylinders, meshes, ...) of detected persons
 void DetectedPersonsDisplay::personVisualTypeChanged()
 {
-  foreach (shared_ptr<DetectedPersonVisual>& detectedPersonVisual, m_previousDetections)
+  foreach (boost::shared_ptr<DetectedPersonVisual>& detectedPersonVisual, m_previousDetections)
   {
     detectedPersonVisual->personVisual.reset();
     createPersonVisualIfRequired(detectedPersonVisual->sceneNode.get(), detectedPersonVisual->personVisual);
@@ -103,7 +103,7 @@ void DetectedPersonsDisplay::personVisualTypeChanged()
 // Update dynamically adjustable properties of all existing detections
 void DetectedPersonsDisplay::stylesChanged()
 {
-  foreach (shared_ptr<DetectedPersonVisual> detectedPersonVisual, m_previousDetections)
+  foreach (boost::shared_ptr<DetectedPersonVisual> detectedPersonVisual, m_previousDetections)
   {
     bool personHidden = isPersonHidden(detectedPersonVisual->detectionId);
 
@@ -193,14 +193,14 @@ void DetectedPersonsDisplay::processMessage(const spencer_tracking_msgs::Detecte
   for (vector<spencer_tracking_msgs::DetectedPerson>::const_iterator detectedPersonIt = msg->detections.begin();
        detectedPersonIt != msg->detections.end(); ++detectedPersonIt)
   {
-    shared_ptr<DetectedPersonVisual> detectedPersonVisual;
+    boost::shared_ptr<DetectedPersonVisual> detectedPersonVisual;
 
     // Create a new visual representation of the detected person
-    detectedPersonVisual = shared_ptr<DetectedPersonVisual>(new DetectedPersonVisual);
+    detectedPersonVisual = boost::shared_ptr<DetectedPersonVisual>(new DetectedPersonVisual);
     m_previousDetections.push_back(detectedPersonVisual);
 
     // This scene node is the parent of all visualization elements for the detected person
-    detectedPersonVisual->sceneNode = shared_ptr<Ogre::SceneNode>(scene_node_->createChildSceneNode());
+    detectedPersonVisual->sceneNode = boost::shared_ptr<Ogre::SceneNode>(scene_node_->createChildSceneNode());
     detectedPersonVisual->detectionId = detectedPersonIt->detection_id;
     detectedPersonVisual->confidence = detectedPersonIt->confidence;
     Ogre::SceneNode* currentSceneNode = detectedPersonVisual->sceneNode.get();
@@ -210,7 +210,7 @@ void DetectedPersonsDisplay::processMessage(const spencer_tracking_msgs::Detecte
     //
 
     // Create new visual for the person itself, if needed
-    shared_ptr<PersonVisual>& personVisual = detectedPersonVisual->personVisual;
+    boost::shared_ptr<PersonVisual>& personVisual = detectedPersonVisual->personVisual;
     createPersonVisualIfRequired(currentSceneNode, personVisual);
 
     const double personHeight = personVisual ? personVisual->getHeight() : 0;

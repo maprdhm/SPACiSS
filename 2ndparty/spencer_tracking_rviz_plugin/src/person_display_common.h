@@ -185,7 +185,7 @@ protected:
   }
 
   /// Create a visual representation of the person itself, if not set yet
-  void createPersonVisualIfRequired(Ogre::SceneNode* sceneNode, shared_ptr<PersonVisual>& personVisual)
+  void createPersonVisualIfRequired(Ogre::SceneNode* sceneNode, boost::shared_ptr<PersonVisual>& personVisual)
   {
     if (!personVisual)
     {
@@ -211,7 +211,7 @@ protected:
   }
 
   /// Applies common styles which apply to person visuals, such as line width etc.
-  void applyCommonStyles(shared_ptr<PersonVisual>& personVisual)
+  void applyCommonStyles(boost::shared_ptr<PersonVisual>& personVisual)
   {
     if (!personVisual)
       return;

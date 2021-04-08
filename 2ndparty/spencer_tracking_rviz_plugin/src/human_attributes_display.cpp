@@ -81,18 +81,18 @@ void HumanAttributesDisplay::update(float wall_dt, float ros_dt)
 
 void HumanAttributesDisplay::stylesChanged()
 {
-  foreach (shared_ptr<HumanAttributeVisual> humanAttributeVisual, m_humanAttributeVisuals | boost::adaptors::map_values)
+  foreach (boost::shared_ptr<HumanAttributeVisual> humanAttributeVisual, m_humanAttributeVisuals | boost::adaptors::map_values)
   {
     updateVisualStyles(humanAttributeVisual);
   }
 }
 
-void HumanAttributesDisplay::updateVisualStyles(shared_ptr<HumanAttributeVisual>& humanAttributeVisual)
+void HumanAttributesDisplay::updateVisualStyles(boost::shared_ptr<HumanAttributeVisual>& humanAttributeVisual)
 {
   track_id trackId = humanAttributeVisual->trackId;
   bool personHidden = isPersonHidden(trackId);
 
-  shared_ptr<CachedTrackedPerson> trackedPerson = m_trackedPersonsCache.lookup(trackId);
+  boost::shared_ptr<CachedTrackedPerson> trackedPerson = m_trackedPersonsCache.lookup(trackId);
   float occlusionAlpha = trackedPerson->isOccluded ? m_occlusion_alpha_property->getFloat() : 1.0;
 
   // Update text colors, size and visibility
@@ -122,22 +122,22 @@ void HumanAttributesDisplay::updateVisualStyles(shared_ptr<HumanAttributeVisual>
   }
 }
 
-shared_ptr<HumanAttributesDisplay::HumanAttributeVisual>
+boost::shared_ptr<HumanAttributesDisplay::HumanAttributeVisual>
 HumanAttributesDisplay::createVisualIfNotExists(track_id trackId)
 {
   if (m_humanAttributeVisuals.find(trackId) == m_humanAttributeVisuals.end())
   {
-    shared_ptr<HumanAttributeVisual> humanAttributeVisual = shared_ptr<HumanAttributeVisual>(new HumanAttributeVisual);
+    boost::shared_ptr<HumanAttributeVisual> humanAttributeVisual = boost::shared_ptr<HumanAttributeVisual>(new HumanAttributeVisual);
 
-    humanAttributeVisual->sceneNode = shared_ptr<Ogre::SceneNode>(scene_node_->createChildSceneNode());
+    humanAttributeVisual->sceneNode = boost::shared_ptr<Ogre::SceneNode>(scene_node_->createChildSceneNode());
 
     humanAttributeVisual->ageGroupText =
-        shared_ptr<TextNode>(new TextNode(context_->getSceneManager(), humanAttributeVisual->sceneNode.get()));
+        boost::shared_ptr<TextNode>(new TextNode(context_->getSceneManager(), humanAttributeVisual->sceneNode.get()));
     humanAttributeVisual->ageGroupText->showOnTop();
     humanAttributeVisual->ageGroupText->setCaption(" ");
 
     humanAttributeVisual->personHeightText =
-        shared_ptr<TextNode>(new TextNode(context_->getSceneManager(), humanAttributeVisual->sceneNode.get()));
+        boost::shared_ptr<TextNode>(new TextNode(context_->getSceneManager(), humanAttributeVisual->sceneNode.get()));
     humanAttributeVisual->personHeightText->showOnTop();
     humanAttributeVisual->personHeightText->setCaption(" ");
 
@@ -171,7 +171,7 @@ void HumanAttributesDisplay::processMessage(const spencer_human_attribute_msgs::
   {
     // Check if there is already a visual for this particular track
     track_id trackId = categoricalAttribute.subject_id;  // assumes subject_id is a track_id (not detection_id)
-    shared_ptr<HumanAttributeVisual> humanAttributeVisual = createVisualIfNotExists(trackId);
+    boost::shared_ptr<HumanAttributeVisual> humanAttributeVisual = createVisualIfNotExists(trackId);
 
     if (categoricalAttribute.values.empty())
     {
@@ -215,7 +215,7 @@ void HumanAttributesDisplay::processMessage(const spencer_human_attribute_msgs::
       std::string meshResource = ss.str();
 
       humanAttributeVisual->genderMesh =
-          shared_ptr<MeshNode>(new MeshNode(context_, humanAttributeVisual->sceneNode.get(), meshResource));
+          boost::shared_ptr<MeshNode>(new MeshNode(context_, humanAttributeVisual->sceneNode.get(), meshResource));
 
       Ogre::ColourValue meshColor(1, 1, 1, 1);
       if (valueWithHighestConfidence == spencer_human_attribute_msgs::CategoricalAttribute::GENDER_MALE)
@@ -236,7 +236,7 @@ void HumanAttributesDisplay::processMessage(const spencer_human_attribute_msgs::
   {
     // Check if there is already a visual for this particular track
     track_id trackId = scalarAttribute.subject_id;  // assumes subject_id is a track_id (not detection_id)
-    shared_ptr<HumanAttributeVisual> humanAttributeVisual = createVisualIfNotExists(trackId);
+    boost::shared_ptr<HumanAttributeVisual> humanAttributeVisual = createVisualIfNotExists(trackId);
 
     if (scalarAttribute.values.empty())
     {
@@ -277,9 +277,9 @@ void HumanAttributesDisplay::processMessage(const spencer_human_attribute_msgs::
   // Update position and style of all existing person visuals
   //
   set<track_id> tracksWithUnknownPosition;
-  foreach (shared_ptr<HumanAttributeVisual> humanAttributeVisual, m_humanAttributeVisuals | boost::adaptors::map_values)
+  foreach (boost::shared_ptr<HumanAttributeVisual> humanAttributeVisual, m_humanAttributeVisuals | boost::adaptors::map_values)
   {
-    shared_ptr<CachedTrackedPerson> trackedPerson = m_trackedPersonsCache.lookup(humanAttributeVisual->trackId);
+    boost::shared_ptr<CachedTrackedPerson> trackedPerson = m_trackedPersonsCache.lookup(humanAttributeVisual->trackId);
 
     // Get current track position
     if (!trackedPerson)

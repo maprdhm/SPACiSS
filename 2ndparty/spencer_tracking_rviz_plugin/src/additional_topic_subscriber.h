@@ -91,7 +91,7 @@ public:
 
   AdditionalTopicSubscriber(const QString& propertyName, Display* display, DisplayContext* context,
                             ros::NodeHandle& update_nh,
-                            const function<void(shared_ptr<const MessageType>)>& messageCallback)
+                            const boost::function<void(boost::shared_ptr<const MessageType>)>& messageCallback)
     : tf_filter(NULL)
     , m_messagesReceived(0)
     , m_display(display)
@@ -218,7 +218,7 @@ private:
   message_filters::Subscriber<MessageType> m_subscriber;
   uint32_t m_messagesReceived;
 
-  const function<void(shared_ptr<const MessageType>)> m_messageCallback;
+  const boost::function<void(boost::shared_ptr<const MessageType>)> m_messageCallback;
 };
 
 }  // end namespace rviz

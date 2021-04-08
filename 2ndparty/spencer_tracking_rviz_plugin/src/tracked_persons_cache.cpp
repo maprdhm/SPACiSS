@@ -59,11 +59,11 @@ void TrackedPersonsCache::reset()
   m_cachedTrackedPersons.clear();
 }
 
-const shared_ptr<CachedTrackedPerson> TrackedPersonsCache::lookup(track_id trackId)
+const boost::shared_ptr<CachedTrackedPerson> TrackedPersonsCache::lookup(track_id trackId)
 {
   CachedTrackedPersonsMap::const_iterator entry = m_cachedTrackedPersons.find(trackId);
   if (entry == m_cachedTrackedPersons.end())
-    return shared_ptr<CachedTrackedPerson>();
+    return boost::shared_ptr<CachedTrackedPerson>();
   else
     return entry->second;
 }
@@ -81,7 +81,7 @@ void TrackedPersonsCache::processTrackedPersonsMessage(const spencer_tracking_ms
   m_cachedTrackedPersons.clear();
   foreach (spencer_tracking_msgs::TrackedPerson trackedPerson, msg->tracks)
   {
-    m_cachedTrackedPersons[trackedPerson.track_id] = shared_ptr<CachedTrackedPerson>(new CachedTrackedPerson);
+    m_cachedTrackedPersons[trackedPerson.track_id] = boost::shared_ptr<CachedTrackedPerson>(new CachedTrackedPerson);
     CachedTrackedPerson& cachedTrackedPerson = *m_cachedTrackedPersons[trackedPerson.track_id];
 
     const geometry_msgs::Point& position = trackedPerson.pose.pose.position;

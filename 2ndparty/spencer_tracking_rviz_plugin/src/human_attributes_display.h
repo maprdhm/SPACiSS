@@ -78,19 +78,19 @@ protected:
 private:
   struct HumanAttributeVisual
   {
-    shared_ptr<Ogre::SceneNode> sceneNode;
-    shared_ptr<MeshNode> genderMesh;
+    boost::shared_ptr<Ogre::SceneNode> sceneNode;
+    boost::shared_ptr<MeshNode> genderMesh;
     unsigned int trackId;
-    shared_ptr<TextNode> ageGroupText;
-    shared_ptr<TextNode> personHeightText;
+    boost::shared_ptr<TextNode> ageGroupText;
+    boost::shared_ptr<TextNode> personHeightText;
   };
 
   // Functions to handle an incoming ROS message.
   void processMessage(const spencer_human_attribute_msgs::HumanAttributes::ConstPtr& msg);
 
   // Helper functions
-  void updateVisualStyles(shared_ptr<HumanAttributeVisual>& humanAttributeVisual);
-  shared_ptr<HumanAttributeVisual> createVisualIfNotExists(track_id trackId);
+  void updateVisualStyles(boost::shared_ptr<HumanAttributeVisual>& humanAttributeVisual);
+  boost::shared_ptr<HumanAttributeVisual> createVisualIfNotExists(track_id trackId);
 
   // User-editable property variables.
   rviz::BoolProperty* m_render_gender_property;
@@ -100,7 +100,7 @@ private:
   rviz::FloatProperty* m_occlusion_alpha_property;
 
   // State variables
-  map<track_id, shared_ptr<HumanAttributeVisual> > m_humanAttributeVisuals;
+  map<track_id, boost::shared_ptr<HumanAttributeVisual> > m_humanAttributeVisuals;
 
   Ogre::Matrix4 m_frameTransform;
   TrackedPersonsCache m_trackedPersonsCache;
