@@ -44,11 +44,10 @@ It allows:
 ## Installation and launch
 
 ### Requirements
-(Tested for Ubuntu 16.04 with ROS Kinetic)
+(Tested on Ubuntu 16.04 with ROS Kinetic and on Ubuntu 18.04 with ROS Melodic)
 - ROS with the visualization stack (currently tested on `kinetic` )
 - C++11 compiler
 - Qt4
-- Gazebo 9 (for pedsim_gazebo_plugin, to use the simulator with gazebo).
 
 ### Install commands
 ```
