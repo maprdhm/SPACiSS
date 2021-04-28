@@ -1,14 +1,12 @@
-# Pedsim_ros AV
-
-Open-source crowd simulation tool for autonomous vehicle (AV) navigation in shared spaces with pedestrians.
+# SPACISS
+Simulation of Pedestrians and an Autonomous Car In Shared Spaces
 
 <img src=pedsim_simulator/images/pedsim_av.png width=500/>
-
 
 The implementation is based on [Pedsim_ros](https://github.com/srl-freiburg/pedsim_ros), ROS packages that wrap a crowd simulator based on Christian Gloor's [libpedsim](http://pedsim.silmaril.org/) library.  
 The pedestrian model is based on the social force model of [Helbing et. al](http://arxiv.org/pdf/cond-mat/9805244.pdf).
 
-This package is useful to support AV developments that require the simulation of pedestrians and an AV in various shared spaces scenarios.  
+This package is useful to support Autonomous vehicle (AV) developments that require the simulation of pedestrians and an AV in various shared spaces scenarios.  
 It allows:  
 &nbsp;&nbsp;&nbsp;1. in simulation, to pre-test AV navigation algorithms in various crowd scenarios,  
 &nbsp;&nbsp;&nbsp;2. in real crowds, to help online prediction of pedestrian trajectories around the AV.
@@ -44,16 +42,15 @@ It allows:
 ## Installation and launch
 
 ### Requirements
-(Tested for Ubuntu 16.04 with ROS Kinetic)
-- ROS with the visualization stack (currently tested on `kinetic` )
+(Tested on Ubuntu 16.04 with ROS Kinetic and on Ubuntu 18.04 with ROS Melodic)
+- ROS with the visualization stack
 - C++11 compiler
 - Qt4
-- Gazebo 9 (for pedsim_gazebo_plugin, to use the simulator with gazebo).
 
 ### Install commands
 ```
 cd [workspace]/src
-git clone https://github.com/maprdhm/pedsim_ros_av.git  
+git clone https://github.com/maprdhm/Spaciss.git  
 cd pedsim_ros_av
 git submodule update --init --recursive
 cd ../..
@@ -82,7 +79,7 @@ The previous command starts 2 simulations with the business area environment and
 
 ## AV control modes
 
-### Mode 0 or 1: by an external controller
+### Mode 0 or 1: with an external controller
 
 The AV in the simulator is controlled externally using any controller than sends [Twist](http://docs.ros.org/api/geometry_msgs/html/msg/Twist.html) messages.
 
@@ -97,10 +94,10 @@ rostopic pub /move_base_simple/goal geometry_msgs/PoseStamped '{header: {stamp: 
 
 
 
-### Mode 2: by the social force model
+### Mode 2: with the social force model
 
 The AV in the simulator is controlled by the social force model, like for pedestrians.  
-For now, the social force is configured to make the AV go straight to its destination, trying to avoid walls but not pedestrians.
+For now, the social force is configured to have the AV go straight to its destination, trying to avoid walls but not pedestrians.
 
 <br/>
 
@@ -239,10 +236,8 @@ For now, the social force is configured to make the AV go straight to its destin
 
 
 ## Reference paper
-A paper describing the simulator is currently under review:  
-<i> authors blinded for review </i>
-
-The bibtex code for including this citation will be provided upon acceptance.
+Manon Prédhumeau. 2021. Simulating Realistic Pedestrian Behaviors in the Context of Autonomous Vehicles in Shared Spaces: Doctoral Consortium. In Proc. of the 20th International Conference on Autonomous Agents and Multiagent Systems (AAMAS 2021), Online, May 3–7, 2021, IFAAMAS, 3 pages.
+[http://www.ifaamas.org/Proceedings/aamas2021/pdfs/p1829.pdf](http://www.ifaamas.org/Proceedings/aamas2021/pdfs/p1829.pdf)
 
 
 ## Licence
@@ -251,11 +246,14 @@ The ROS integration and extensions are licensed under BSD.
 
 
 ## Contributors
-<i> Blinded for review </i>
+Manon Prédhumeau,
+Lyuba Mancheva,
+Julie Dugdale,
+Anne Spalanzani
 
 The package is a **work in progress** mainly used in research prototyping.
 
 
 ## Acknowledgements
-This work has been developed as part of the <i> blinded for review </i> project.
+This work has been developed as part of the [HIANIC](https://project.inria.fr/hianic/) project.
 
