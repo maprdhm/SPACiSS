@@ -246,9 +246,9 @@ The ROS integration and extensions are licensed under BSD.
 
 
 ## Contributors
-Manon Prédhumeau
-Lyuba Mancheva
-Julie Dugdale
+Manon Prédhumeau,
+Lyuba Mancheva,
+Julie Dugdale,
 Anne Spalanzani
 
 The package is a **work in progress** mainly used in research prototyping.
