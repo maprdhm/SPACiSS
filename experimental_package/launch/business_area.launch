@@ -12,7 +12,7 @@
    <arg name="pose_initial_x" default="0.0"/>
    <arg name="pose_initial_y" default="-20.0"/>
    <arg name="pose_initial_theta" default="1.57"/>
-   <arg name="max_robot_speed" default="3"/>
+   <arg name="max_robot_speed" default="2.5"/>
 
   <!-- Simulator -->
   <include file="$(find pedsim_simulator)/launch/simulator.launch">

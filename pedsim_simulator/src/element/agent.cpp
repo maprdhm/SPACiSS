@@ -1317,7 +1317,8 @@ void Agent::processCarInformation(const Agent* car)
             // if both converge/diverge -> already crossed
             if((bearingAngle.sign()*bearingAngleDeriv<0 && bearingAngleC.sign()*bearingAngleDerivC<0)
                   || (bearingAngle.sign()*bearingAngleDeriv>0 && bearingAngleC.sign()*bearingAngleDerivC>0)
-                  ||abs(pedToColl.angleTo(this->getWalkingDirection()).toDegree())>90){
+                  ||abs(pedToColl.angleTo(this->getWalkingDirection()).toDegree())>120
+                  ){
                //ROS_INFO_STREAM("already crossed");
                this->isStopped = false;
                this->isSteppingBack=false;
