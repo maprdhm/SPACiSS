@@ -1,7 +1,7 @@
 <!-- 0.05p/m²-->
 <scenario>
-   <waypoint id="dest" x="15" y="35" r="5" />
-   <waypoint id="farDest" x="15" y="100" r="5" />
+   <waypoint id="dest" x="0.0" y="35" r="5" />
+   <waypoint id="farDest" x="0.0" y="100" r="5" />
 
    <waypoint id="goal1" x="-16" y="-40" r="5" />
    <waypoint id="goal2" x="-16" y="-100" r="5" />

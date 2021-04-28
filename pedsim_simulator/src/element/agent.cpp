@@ -148,7 +148,7 @@ void Agent::computeForces()
                (this->getRadius(v.angleTo(diff),0.0) + neighbor->getRadius(neighbor->getWalkingDirection().angleTo(-diff),0.0));
            if(physicalDistance <= 0.0){
               collideAV = true;
-              v = physicalForce();
+              v = physicalForce() + obstacleforce;
               ROS_INFO_STREAM(id << " COLLIDE");
            }
       }
@@ -541,10 +541,7 @@ void Agent::move(double h)
     }
   }
   else if (getType() == Ped::Tagent::IMMOB)
-   {
-     setvx(0);
-     setvy(0);
-  }
+  {}
   else if (getType() ==  Ped::Tagent::FROM_FILE)
   {
      moveToNextPositionFromFile();
@@ -1300,8 +1297,11 @@ void Agent::processCarInformation(const Agent* car)
          }
          else{
             // Bearing angle considers the AV size now
-            Ped::Tvector carNearestSide = Ped::Tvector(car->p.x + (car->getRadius((Ped::Tvector(carvx, carvy).angleTo(pedPos-car->p)),0.0) * (pedPos-car->p)).x/*(car->getVelocity().normalized().x)*/,
-                                  car->p.y + (car->getRadius((Ped::Tvector(carvx, carvy).angleTo(pedPos-car->p)),0.0) * (pedPos-car->p)).y);
+            double margin = 0.0;
+            if(car->getVelocity().length()<0.2)
+               margin = 2.0;
+            Ped::Tvector carNearestSide = Ped::Tvector(car->p.x + (car->getRadius((Ped::Tvector(carvx, carvy).angleTo(pedPos-car->p)),margin) * (pedPos-car->p)).x/*(car->getVelocity().normalized().x)*/,
+                                  car->p.y + (car->getRadius((Ped::Tvector(carvx, carvy).angleTo(pedPos-car->p)),margin) * (pedPos-car->p)).y);
             // Bearing angle from ped point of view
             Ped::Tangle bearingAngle = pedVelo.angleTo(carNearestSide - pedPos);
             double bearingAngleDeriv = (carNearestSide - pedPos).angleTo((carNearestSide - pedPos)+(Ped::Tvector(carvx, carvy) - pedVelo)).toRadian();
