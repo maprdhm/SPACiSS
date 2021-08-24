@@ -241,7 +241,6 @@ public:
   bool isCollidingAV() const;
 
    bool perceiveAgent(const Agent* perceived, double distanceMax, double angleViewDegree) const;
-   void perceiveOtherAgents();
    bool giveAttentionTo(const Agent* neighbor) const;
    bool giveAttentionTo(const AgentGroup* group, double distance, Ped::Tangle angle) const;
    QList<const Agent*> updatePerceivedNeighbors();

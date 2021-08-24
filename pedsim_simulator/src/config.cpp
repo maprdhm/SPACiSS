@@ -44,8 +44,8 @@ Config::Config(QObject* parent)
   forceSocial = 5.1;
 
   forceGroupGaze = 3.0;
-  forceGroupCoherence = 2.0;
-  forceGroupRepulsion = 1.0;
+  forceGroupCoherence = 20.0;
+  forceGroupRepulsion = 0.0;
   forceRandom = 0.1;
   forceAlongWall = 2.0;
 
