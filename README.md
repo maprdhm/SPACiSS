@@ -1,5 +1,5 @@
-# SPACISS
-Simulation of Pedestrians and an Autonomous Car In Shared Spaces
+# SPACiSS
+Simulation of Pedestrians and an Autonomous Car in Shared Spaces
 
 <img src=pedsim_simulator/images/pedsim_av.png width=500/>
 
