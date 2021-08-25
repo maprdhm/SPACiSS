@@ -165,7 +165,7 @@ bool Simulator::initializeSimulation()
   nh_.param<double>("risk_radius", CONFIG.riskRadius, 1.4);
   nh_.param<double>("ttc_low", CONFIG.ttcLow, -1.0);
   nh_.param<double>("ttc_up", CONFIG.ttcUp, 5.0);
-  nh_.param<double>("ttc_stop", CONFIG.ttcStop, 2.0);
+  nh_.param<double>("ttcImminent", CONFIG.ttcImminent, 2.0);
   nh_.param<double>("hesitation_threshold", CONFIG.hesitationThreshold, 0.1);
 
   paused_ = false;

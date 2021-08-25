@@ -192,7 +192,7 @@ private:
   double riskRadius;
   double ttcLow;
   double ttcUp;
-  double ttcStop;
+  double ttcImminent;
   double hesitationThreshold;
 
 protected:
@@ -245,9 +245,10 @@ public:
    bool giveAttentionTo(const AgentGroup* group, double distance, Ped::Tangle angle) const;
    QList<const Agent*> updatePerceivedNeighbors();
    void updatePerceivedObstacles();
-   void realisticMove(double stepSizeIn);
+
 
 private:
+   void realisticMove(double stepSizeIn);
    void moveToNextPositionFromFile();
    bool hasMoved;
    void initializePedestrianValues();

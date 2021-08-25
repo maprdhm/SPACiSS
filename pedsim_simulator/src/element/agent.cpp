@@ -110,7 +110,7 @@ void Agent::initializePedestrianValues(){
    dangerRadius = CONFIG.dangerRadius;
    ttcLow = CONFIG.ttcLow;
    ttcUp = CONFIG.ttcUp;
-   ttcStop = CONFIG.ttcStop;
+   ttcImminent = CONFIG.ttcImminent;
    hesitationThreshold = CONFIG.hesitationThreshold;
 }
 
@@ -1268,7 +1268,7 @@ void Agent::processCarInformation(const Agent* car)
          Ped::Tvector pedVelo = pedIdealVelocity;
          if(isInGroup()) {
             pedVelo = group->getWalkingDirection();
-            if(deltaCollision>0 && min((-b+sqrt(deltaCollision))/(2*a),(-b-sqrt(deltaCollision))/(2*a))<ttcStop ){
+            if(deltaCollision>0 && min((-b+sqrt(deltaCollision))/(2*a),(-b-sqrt(deltaCollision))/(2*a))<ttcImminent ){
                myforce = Ped::Tvector();
                //ROS_INFO_STREAM("temp leave group");
             } else {
@@ -1434,7 +1434,7 @@ void Agent::processCarInformation(const Agent* car)
       desiredforce = -desiredforce;
    }
    else if (isStopped){
-      if(ttc<ttcStop){
+      if(ttc<ttcImminent){
           socialforce = physicalForce();
           desiredforce = (-v/relaxationTime);
       }else

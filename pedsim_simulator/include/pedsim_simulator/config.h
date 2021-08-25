@@ -113,7 +113,7 @@ public:
   double riskRadius;
   double ttcLow;
   double ttcUp;
-  double ttcStop;
+  double ttcImminent;
   double hesitationThreshold;
 
   // robot control

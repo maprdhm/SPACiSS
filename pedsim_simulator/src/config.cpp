@@ -71,7 +71,7 @@ Config::Config(QObject* parent)
   riskRadius = 1.4;
   ttcLow = -1.0;
   ttcUp = 5.0;
-  ttcStop = 2.0;
+  ttcImminent = 2.0;
   hesitationThreshold = 0.1;
 
   ns = "";
