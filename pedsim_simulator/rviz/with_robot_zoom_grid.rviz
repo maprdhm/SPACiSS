@@ -268,7 +268,7 @@ Visualization Manager:
           Alpha: 1
           Show Axes: false
           Show Trail: false
-        zoe_odom_origin:
+        prius_odom_origin:
           Alpha: 1
           Show Axes: false
           Show Trail: false

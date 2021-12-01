@@ -5,7 +5,7 @@
   <arg name="pose_initial_y" default="5.0"/>
   <arg name="pose_initial_theta" default="0.0"/>
   <arg name="robot_mode" default="1"/>
-  <arg name="robot_description" default="$(find experimental_package)/models/zoe/urdf/zoe.urdf"/>
+  <arg name="robot_description" default="$(find experimental_package)/models/prius/urdf/prius.urdf"/>
   <arg name="ns" default=""/>
   
   <param name="robot_description" textfile="$(arg robot_description)"/>

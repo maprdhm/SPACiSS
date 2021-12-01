@@ -29,7 +29,7 @@ It allows:
 ## Features
 - Heterogeneous crowds in shared spaces for simulation and prediction of 100 pedestrians in real time.
 - Individuals and groups walking using social force model, with various social relationships
-- Renault Zoé AV model, controlled from within the simulation or by external ROS controllers.
+- Prius AV model (from https://github.com/osrf/car_demo/tree/master/prius_description), controlled from within the simulation or by external ROS controllers.
 - Pedestrians reactions to the AV
 - 3 shared space environments (business area, campus, citer center) and 8 scenarios for each env. ready to test AV navigation algorithms
 - Sensors simulation (point clouds in AV frame for people and walls)
@@ -131,7 +131,7 @@ For now, the social force is configured to have the AV go straight to its destin
 | pose_initial_x  | x postion of the AV  | 5.0  | double  |
 | pose_initial_y  | y postion of the AV  | 5.0  | double  |
 | pose_initial_theta  | Orientation of the AV  | 0.0  | double |
-| robot_description  | URDF model of AV  | zoe.urdf | absolute path to urdf file |
+| robot_description  | URDF model of AV  | prius.urdf | absolute path to urdf file |
 | max_robot_speed  | Max speed of AV (m/s)  | 3.0 | double |
 | robot_mode  | AV control mode | 1 | 0: controlled / 1: teleop / 2: social_drive (with SFM) |
 

@@ -14,7 +14,7 @@
   <arg name="enable_distraction" default="false"/>
   <arg name="simulation_factor" default="1"/>
   <arg name="update_rate" default="25.0"/>
-  <arg name="robot_description" default="$(find experimental_package)/models/zoe/urdf/zoe.urdf"/>
+  <arg name="robot_description" default="$(find experimental_package)/models/prius/urdf/prius.urdf"/>
   
   <arg name="force_random" default="0.1"/>
   <arg name="force_obstacle" default="10.0"/>

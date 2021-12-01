@@ -1,7 +1,7 @@
 <launch>
-    <arg name="pose_initial_x" default="-60"/>
-    <arg name="pose_initial_y" default="0.0"/>
-    <arg name="pose_initial_theta" default="0.0"/>
+    <arg name="pose_initial_x" default="0"/>
+    <arg name="pose_initial_y" default="-20.0"/>
+    <arg name="pose_initial_theta" default="1.57"/>
 
    <!-- Only one timer per roslaunch possible (all simulation in a launch will have the same duration -->
    <node name="timer" pkg="experimental_package" type="timer" output="screen" required="true">
