@@ -4,9 +4,9 @@ Created on Mon Dec  2
 @author: mahmoud
 */
 
-#include <gazebo-9/gazebo/common/Plugin.hh>
-#include <gazebo-9/gazebo/physics/physics.hh>
-#include <gazebo-9/gazebo/util/system.hh>
+#include <gazebo/common/Plugin.hh>
+#include <gazebo/physics/physics.hh>
+#include <gazebo/util/system.hh>
 
 #include <ros/ros.h>
 #include "ros/callback_queue.h"
@@ -15,7 +15,6 @@ Created on Mon Dec  2
 
 #include<pedsim_msgs/TrackedPersons.h>
 #include<pedsim_msgs/AgentStates.h>
-
 
 
 namespace gazebo
@@ -44,9 +43,17 @@ namespace gazebo
             void OnRosMsg( const pedsim_msgs::AgentStatesConstPtr msg) {
 //              ROS_INFO ("OnRosMsg ... ");
                 std::string model_name;
+#if GAZEBO_MAJOR_VERSION < 9
+                for(unsigned int mdl = 0; mdl < world_->GetModelCount(); mdl++) {
+#else
                 for(unsigned int mdl = 0; mdl < world_->ModelCount(); mdl++) {
+#endif
                     physics::ModelPtr  tmp_model;
+#if GAZEBO_MAJOR_VERSION < 9
+                    tmp_model = world_->GetModel(mdl);
+#else
                     tmp_model = world_->ModelByIndex(mdl);
+#endif
                     std::string frame_id;
                     frame_id = tmp_model->GetName();
 
@@ -56,11 +63,12 @@ namespace gazebo
                             ignition::math::Pose3d gzb_pose;
                             gzb_pose.Pos().Set( msg->agent_states[actor].pose.position.x,
                                                 msg->agent_states[actor].pose.position.y,
-                                                msg->agent_states[actor].pose.position.z + 0.75);
+                                                msg->agent_states[actor].pose.position.z + MODEL_OFFSET);
                             gzb_pose.Rot().Set(msg->agent_states[actor].pose.orientation.w,
                                                msg->agent_states[actor].pose.orientation.x,
                                                msg->agent_states[actor].pose.orientation.y,
                                                msg->agent_states[actor].pose.orientation.z);
+
                             try{
                                 tmp_model->SetWorldPose(gzb_pose);
                             }
@@ -90,9 +98,11 @@ namespace gazebo
         std::thread rosQueueThread;
         physics::WorldPtr world_;
         event::ConnectionPtr updateConnection_;
+        const float MODEL_OFFSET = 0.75;
 
     };
     GZ_REGISTER_WORLD_PLUGIN(ActorPosesPlugin)
 }
+
 
 
