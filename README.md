@@ -35,7 +35,7 @@ It allows:
 - Sensors simulation (point clouds in AV frame for people and walls)
 - XML based scene design
 - Visualization using Rviz
-- Optional plugin to connect with gazebo
+- Optional plugin to connect with gazebo (7 or 9)
 
 <br/>
 
