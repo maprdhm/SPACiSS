@@ -1,14 +1,14 @@
 <?xml version="1.0" ?>
 <sdf version="1.5">
 
-
+<!--
 <model name="actor_model">
   <pose>0 0 0.75 0 0 0</pose>
   <link name="link">
     <collision name="collision">
       <geometry>
         <box>
-          <size>.5 .5 1.5</size>
+          <size>.4 .6 1.7</size>
         </box>
       </geometry>
     </collision>
@@ -16,39 +16,59 @@
     <visual name="visual">
       <geometry>
         <box>
-          <size>.5 .5 1.5</size>
+          <size>.4 .6 1.7</size>
         </box>
       </geometry>
     </visual>
 
   </link>
 </model>
-
-<!--
-<model name="actor_model">
-  <link name="link">
-    <collision name="collision">
-      <pose>0 0 0 1.5708 0 0</pose>
-      <geometry>
-      <box>
-        <size>.5 .5 1.5</size>
-      </box>
-      </geometry>
-    </collision>
-    <visual name="visual">
-      <pose>0 0 0 1.5708 0 0</pose>
-      <geometry>
-        <mesh>
-          <scale>0.01 0.01 0.01</scale>
-          <uri>model://pedsim_gazebo_plugin/meshes/actor_model.obj</uri>
-        </mesh>
-      </geometry>
-    </visual>
-  </link>
-</model>
 -->
 
 
+<model name="actor_model">
+ <link name="link">
+   <gravity>0</gravity>
+   <inertial>
+     <pose>0 0 0 0 0 0</pose>
+     <mass>70.0</mass>
+     <inertia>
+     <ixx>0</ixx>
+     <ixy>0</ixy>
+     <ixz>0</ixz>
+     <iyy>0</iyy>
+     <iyz>0</iyz>
+     <izz>0</izz>
+     </inertia>
+   </inertial>
 
+   <collision name="bottom">
+     <pose>0 0 0 0 0 0</pose>
+     <geometry>
+       <box>
+         <size>0.3 0.3 0.02</size>
+       </box>
+     </geometry>
+   </collision>
+
+  <!-- <collision name="person">
+     <pose>0 0 0 0 0 0</pose>
+     <geometry>
+       <mesh>
+         <uri>model://person_walking/meshes/walking.dae</uri>
+       </mesh>
+     </geometry>
+   </collision>-->
+
+   <visual name="visual">
+     <pose>0 0 -0.78 0 0 1.57</pose>
+     <geometry>
+       <mesh>
+         <uri>model://person_walking/meshes/walking.dae</uri>
+       </mesh>
+     </geometry>
+   </visual>
+ </link>
+</model>
 
 </sdf>
