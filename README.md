@@ -29,7 +29,7 @@ It allows:
 ## Features
 - Heterogeneous crowds in shared spaces for simulation and prediction of 100 pedestrians in real time.
 - Individuals and groups walking using social force model, with various social relationships
-- Prius AV model (from https://github.com/osrf/car_demo/tree/master/prius_description), controlled from within the simulation or by external ROS controllers.
+- Prius AV model (from https://github.com/osrf/car_demo/tree/master/prius_description) or Zoe AV model (from https://univ-nantes.io/hamon-a/icars-public), controlled from within the simulation or by an external ROS controller publishing velocity commands.
 - Pedestrians reactions to the AV
 - 3 shared space environments (business area, campus, citer center) and 8 scenarios for each env. ready to test AV navigation algorithms
 - Sensors simulation (point clouds in AV frame for people and walls)
@@ -55,7 +55,7 @@ cd pedsim_ros_av
 git submodule update --init --recursive
 cd ../..
 
-catkin_make (twice at the first time)
+catkin_make or catkin build (twice at the first time)
 ```
 
 ### Sample usage
@@ -133,7 +133,7 @@ For now, the social force is configured to have the AV go straight to its destin
 | pose_initial_theta  | Orientation of the AV  | 0.0  | double |
 | robot_description  | URDF model of AV  | prius.urdf | absolute path to urdf file |
 | max_robot_speed  | Max speed of AV (m/s)  | 3.0 | double |
-| robot_mode  | AV control mode | 1 | 0: controlled / 1: teleop / 2: social_drive (with SFM) |
+| robot_mode  | AV control mode | 1 | 0 or 1: teleoperation / 2: social_drive (with SFM) |
 
 #### Pedestrians
 
@@ -236,7 +236,7 @@ For now, the social force is configured to have the AV go straight to its destin
 
 
 ## Reference paper
-Manon Prédhumeau. 2021. Simulating Realistic Pedestrian Behaviors in the Context of Autonomous Vehicles in Shared Spaces: Doctoral Consortium. In Proc. of the 20th International Conference on Autonomous Agents and Multiagent Systems (AAMAS 2021), Online, May 3–7, 2021, IFAAMAS, 3 pages.
+Manon Prédhumeau. 2021. Simulating Realistic Pedestrian Behaviors in the Context of Autonomous Vehicles in Shared Spaces: Doctoral Consortium. In Proc. of the 20th International Conference on Autonomous Agents and Multiagent Systems (AAMAS 2021), May 3–7, 2021, IFAAMAS, 3 pages.
 [http://www.ifaamas.org/Proceedings/aamas2021/pdfs/p1829.pdf](http://www.ifaamas.org/Proceedings/aamas2021/pdfs/p1829.pdf)
 
 

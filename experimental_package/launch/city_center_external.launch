@@ -7,7 +7,7 @@
    <arg name="simulation_factor" default="1.0"/> <!-- Speed up -->
    <arg name="update_rate" default="10.0"/> <!-- Hz -->
    <arg name="ns" default=""/>
-   <arg name="robot_description" default="$(find experimental_package)/models/prius/urdf/$(arg ns)/prius.urdf"/>
+   <arg name="robot_description" default="$(find experimental_package)/models/zoe/urdf/$(arg ns)/zoe.urdf"/>
 
    <arg name="pose_initial_x" default="0.0"/>
    <arg name="pose_initial_y" default="-20.0"/>
@@ -41,8 +41,6 @@
 
    <!-- Create a transform sender for linking these frames: static_transform_publisher x y z yaw pitch roll frame_id child_frame_id period_in_ms -->
    <node name="tf_footprint_base" pkg="tf" type="static_transform_publisher" args="0 0 0 0 0 0 $(arg ns)/base_footprint $(arg ns)/base_link 100"/>
-   <!-- Publish a static transformation between /odom and /map -->
-   <node name="tf" pkg="tf" type="static_transform_publisher" args="0 0 0 0 0 0 odom $(arg ns)/prius_odom_origin 100" />
 
 
    <!-- Visualizer -->

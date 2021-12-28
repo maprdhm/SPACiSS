@@ -915,9 +915,9 @@ void Agent::setType(Ped::Tagent::AgentType typeIn)
   if(typeIn == ROBOT){
      this->setVmax(CONFIG.max_robot_speed);
      // Ellipse englobante
-     this->setEllipseThickness(4.8);
+     this->setEllipseThickness(4.6);
      this->setEllipseWidth(2.4);
-     this->SetRadius(2.4);
+     this->SetRadius(2.3);
      /* Av size from data CITR*/
     /* this->setEllipseThickness(2.2);
      this->setEllipseWidth(1.2);
