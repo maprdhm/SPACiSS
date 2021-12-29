@@ -1,0 +1,17 @@
+<scenario>
+   <waypoint id="dest" x="0.0" y="35" r="5" />
+   <waypoint id="farDest" x="0.0" y="100" r="5" />
+
+   <waypoint id="goalPed" x="0.0" y="2.0" r="2" />
+   <waypoint id="startPed" x="0.0" y="-15.0" r="2" />
+
+   <agent x="0.0" y="-15.0" theta="1.57" n="10" dx="3" dy="5" type="0">
+      <addwaypoint id="goalPed" />
+      <addwaypoint id="startPed" />
+   </agent>
+
+   <agent x="-36.0" y="-6.5" theta="0.0" n="1" type="2"> <!-- robot -->
+      <addwaypoint id="dest" />
+      <addwaypoint id="farDest" />
+   </agent>
+</scenario>
