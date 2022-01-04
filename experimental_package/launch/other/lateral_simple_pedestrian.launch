@@ -24,7 +24,7 @@
     <arg name="simulation_factor" value="$(arg simulation_factor)"/>
     <arg name="update_rate" value="$(arg update_rate)"/>
     <arg name="max_robot_speed" value="$(arg max_robot_speed)"/>
-    <arg name="robot_mode" value="2"/>
+    <arg name="robot_mode" value="0"/>
     <arg name="enable_groups" value="false"/>
     <arg name="group_size_lambda" default="0.8"/>
     <arg name="groups_couples_proportion" default="0.05"/>
