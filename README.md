@@ -35,7 +35,7 @@ It allows:
 - Sensors simulation (point clouds in AV frame for people and walls)
 - XML based scene design
 - Visualization using Rviz
-- Optional plugin to connect with gazebo (7 or 9)
+- Optional plugin to connect with Gazebo (7 or 9)
 
 <br/>
 
@@ -43,7 +43,7 @@ It allows:
 
 ### Requirements
 (Tested on Ubuntu 16.04 with ROS Kinetic and on Ubuntu 18.04 with ROS Melodic)
-- ROS with the visualization stack
+- ROS with the navigation and visualization stack
 - C++11 compiler
 - Qt4
 
@@ -51,7 +51,7 @@ It allows:
 ```
 cd [workspace]/src
 git clone https://github.com/maprdhm/Spaciss.git  
-cd pedsim_ros_av
+cd Spaciss
 git submodule update --init --recursive
 cd ../..
 
