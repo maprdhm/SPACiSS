@@ -51,7 +51,7 @@ It allows:
 ```
 cd [workspace]/src
 git clone https://github.com/maprdhm/Spaciss.git  
-cd pedsim_ros_av
+cd Spaciss
 git submodule update --init --recursive
 cd ../..
 
