@@ -5,5 +5,5 @@ robot_radius: 2.3
 inflation_radius: 0.55
 
 observation_sources: point_cloud_sensor
-robot_base_frame: /base_footprint
+robot_base_frame: base_footprint
 point_cloud_sensor: {sensor_frame: odom, data_type: PointCloud, topic: pedsim_sensors/pedsim_people_sensor/point_cloud_local, marking: true, clearing: true}

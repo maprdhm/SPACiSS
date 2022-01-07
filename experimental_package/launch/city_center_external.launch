@@ -40,7 +40,7 @@
   </include>
 
    <!-- Create a transform sender for linking these frames: static_transform_publisher x y z yaw pitch roll frame_id child_frame_id period_in_ms -->
-   <node name="tf_footprint_base" pkg="tf" type="static_transform_publisher" args="0 0 0 0 0 0 $(arg ns)/base_footprint $(arg ns)/base_link 100"/>
+   <node name="tf_footprint_base" pkg="tf" type="static_transform_publisher" args="0 0 0 0 0 0 base_footprint base_link 100"/>
 
 
    <!-- Visualizer -->

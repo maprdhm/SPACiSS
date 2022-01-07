@@ -66,15 +66,6 @@ The previous command should start the simulator with the business area environme
 More launch files are in the `experimental_package/launch` repository.  
 Ready to test scenarios are in the `experimental_package/scenarios` repository.  
 
-
-### Parallel execution of multiple nodes
-
-```
-roslaunch experimental_package multi_node_parallel.launch
-```
-The previous command starts 2 simulations with the business area environment and the shared space scenario, with AV max speed of 2m/s and 4m/s respectively.  
-
-
 <br/>
 
 ## AV control modes
