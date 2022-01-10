@@ -67,7 +67,7 @@ More launch files are in the `experimental_package/launch` repository.
 Ready to test scenarios are in the `experimental_package/scenarios` repository.  
 
 
-### Parallel execution of multiple nodes
+### Parallel execution of multiple nodes (only available on Ubuntu 16 with ROS Kinetic)
 
 ```
 roslaunch experimental_package multi_node_parallel.launch
