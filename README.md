@@ -35,14 +35,14 @@ It allows:
 - Sensors simulation (point clouds in AV frame for people and walls)
 - XML based scene design
 - Visualization using Rviz
-- Optional plugin to connect with Gazebo (7 or 9)
+- Optional plugin to connect with Gazebo
 
 <br/>
 
 ## Installation and launch
 
 ### Requirements
-(Tested on Ubuntu 16.04 with ROS Kinetic and on Ubuntu 18.04 with ROS Melodic)
+(Tested on Ubuntu 16.04 with ROS Kinetic and Gazebo7 and on Ubuntu 18.04 with ROS Melodic and Gazebo9)
 - ROS with the navigation and visualization stack
 - C++11 compiler
 - Qt4
