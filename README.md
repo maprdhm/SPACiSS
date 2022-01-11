@@ -42,10 +42,15 @@ It allows:
 ## Installation and launch
 
 ### Requirements
-(Tested on Ubuntu 16.04 with ROS Kinetic and Gazebo7 and on Ubuntu 18.04 with ROS Melodic and Gazebo9)
+Tested on:
+- Ubuntu 16.04 with ROS Kinetic and Gazebo7 
+- Ubuntu 18.04 with ROS Melodic and Gazebo9
+- Ubuntu 20.04 with ROS Noetic and Gazebo11
+
+Requires:
 - ROS with the navigation and visualization stack
-- C++11 compiler
-- Qt4
+- C++11 compiler (or C++14 for Noetic)
+- Qt4 (or Qt5 for Noetic)
 
 ### Install commands
 ```
@@ -65,6 +70,7 @@ roslaunch experimental_package business_area.launch
 The previous command should start the simulator with the business area environment and the shared space scenario (many pedestrians and an AV).  
 More launch files are in the `experimental_package/launch` repository.  
 Ready to test scenarios are in the `experimental_package/scenarios` repository.  
+
 
 <br/>
 
@@ -247,4 +253,3 @@ The package is a **work in progress** mainly used in research prototyping.
 
 ## Acknowledgements
 This work has been developed as part of the [HIANIC](https://project.inria.fr/hianic/) project.
-
