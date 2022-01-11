@@ -35,17 +35,23 @@ It allows:
 - Sensors simulation (point clouds in AV frame for people and walls)
 - XML based scene design
 - Visualization using Rviz
-- Optional plugin to connect with Gazebo (7 or 9)
+- Optional plugin to connect with Gazebo
 
 <br/>
 
 ## Installation and launch
 
 ### Requirements
-(Tested on Ubuntu 16.04 with ROS Kinetic and on Ubuntu 18.04 with ROS Melodic)
+Tested on:
+- Ubuntu 16.04 with ROS Kinetic and Gazebo7 
+- Ubuntu 18.04 with ROS Melodic and Gazebo9
+- Ubuntu 20.04 with ROS Noetic and Gazebo11
+
+Requires:
 - ROS with the navigation and visualization stack
-- C++11 compiler
-- Qt4
+- C++11 compiler (or C++14 for Noetic)
+- Qt4 (or Qt5 for Noetic)
+- Gazebo if pedsim_gazebo_plugin is used
 
 ### Install commands
 ```
@@ -66,8 +72,14 @@ The previous command should start the simulator with the business area environme
 More launch files are in the `experimental_package/launch` repository.  
 Ready to test scenarios are in the `experimental_package/scenarios` repository.  
 
+### With Gazebo
+```
+roslaunch pedsim_gazebo_plugin scene1.launch
+```
+The previous command should start the simulator and Gazebo with some pedestrians. 
 
-### Parallel execution of multiple nodes
+
+### Parallel execution of multiple nodes (only available on Ubuntu 16 with ROS Kinetic)
 
 ```
 roslaunch experimental_package multi_node_parallel.launch
