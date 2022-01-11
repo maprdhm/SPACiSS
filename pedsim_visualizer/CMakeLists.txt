@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 2.8.3)
 project(pedsim_visualizer)
-add_definitions(-Wall -Wunused -std=c++11 -pipe -Wunused -Wextra)
+add_definitions(-Wall -Wunused -std=c++14 -pipe -Wunused -Wextra)
 
 set(PACKAGE_DEPS
   geometry_msgs
