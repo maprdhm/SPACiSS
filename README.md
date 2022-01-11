@@ -46,11 +46,7 @@ Tested on:
 - Ubuntu 16.04 with ROS Kinetic and Gazebo7 
 - Ubuntu 18.04 with ROS Melodic and Gazebo9
 - Ubuntu 20.04 with ROS Noetic and Gazebo11
-
-Requires:
-- ROS with the navigation and visualization stack
-- C++11 compiler (or C++14 for Noetic)
-- Qt4 (or Qt5 for Noetic)
+- Gazebo if pedsim_gazebo_plugin is used
 
 ### Install commands
 ```
@@ -71,6 +67,11 @@ The previous command should start the simulator with the business area environme
 More launch files are in the `experimental_package/launch` repository.  
 Ready to test scenarios are in the `experimental_package/scenarios` repository.  
 
+### With Gazebo
+```
+roslaunch pedsim_gazebo_plugin scene1.launch
+```
+The previous command should start the simulator and Gazebo with some pedestrians. 
 
 <br/>
 
