@@ -51,6 +51,7 @@ Requires:
 - ROS with the navigation and visualization stack
 - C++11 compiler (or C++14 for Noetic)
 - Qt4 (or Qt5 for Noetic)
+- Gazebo if pedsim_gazebo_plugin is used
 
 ### Install commands
 ```
@@ -70,6 +71,12 @@ roslaunch experimental_package business_area.launch
 The previous command should start the simulator with the business area environment and the shared space scenario (many pedestrians and an AV).  
 More launch files are in the `experimental_package/launch` repository.  
 Ready to test scenarios are in the `experimental_package/scenarios` repository.  
+
+### With Gazebo
+```
+roslaunch pedsim_gazebo_plugin scene1.launch
+```
+The previous command should start the simulator and Gazebo with some pedestrians. 
 
 
 ### Parallel execution of multiple nodes (only available on Ubuntu 16 with ROS Kinetic)
