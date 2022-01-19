@@ -43,9 +43,9 @@ It allows:
 
 ### Requirements
 Tested on:
-- Ubuntu 16.04 with ROS Kinetic and Gazebo7 
-- Ubuntu 18.04 with ROS Melodic and Gazebo9
-- Ubuntu 20.04 with ROS Noetic and Gazebo11
+- Ubuntu 16.04 with ROS Kinetic and Gazebo7 (master branch)
+- Ubuntu 18.04 with ROS Melodic and Gazebo9 (master branch)
+- Ubuntu 20.04 with ROS Noetic and Gazebo11 (noetic branch)
 
 Requires:
 - ROS with the navigation and visualization stack
@@ -247,10 +247,11 @@ For now, the social force is configured to have the AV go straight to its destin
 <br/>
 
 
-## Reference paper
+## Reference papers
 Manon Prédhumeau. 2021. Simulating Realistic Pedestrian Behaviors in the Context of Autonomous Vehicles in Shared Spaces: Doctoral Consortium. In Proc. of the 20th International Conference on Autonomous Agents and Multiagent Systems (AAMAS 2021), May 3–7, 2021, IFAAMAS, 3 pages.
 [http://www.ifaamas.org/Proceedings/aamas2021/pdfs/p1829.pdf](http://www.ifaamas.org/Proceedings/aamas2021/pdfs/p1829.pdf)
 
+Manon Prédhumeau. Modélisation et simulation de comportements piétons réalistes en espace partagé avec un véhicule autonome. Université Grenoble Alpes, 2021. Français. [tel-03518751](https://hal.archives-ouvertes.fr/tel-03518751)
 
 ## Licence
 The core `libpedsim` is licensed under LGPL.  
