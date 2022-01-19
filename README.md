@@ -251,7 +251,7 @@ For now, the social force is configured to have the AV go straight to its destin
 Manon Prédhumeau. 2021. Simulating Realistic Pedestrian Behaviors in the Context of Autonomous Vehicles in Shared Spaces: Doctoral Consortium. In Proc. of the 20th International Conference on Autonomous Agents and Multiagent Systems (AAMAS 2021), May 3–7, 2021, IFAAMAS, 3 pages.
 [http://www.ifaamas.org/Proceedings/aamas2021/pdfs/p1829.pdf](http://www.ifaamas.org/Proceedings/aamas2021/pdfs/p1829.pdf)
 
-Manon Prédhumeau. Modélisation et simulation de comportements piétons réalistes en espace partagé avec un véhicule autonome. Université Grenoble Alpes, 2021. Français. [tel-03518751](https://hal.archives-ouvertes.fr/tel-03518751)
+Manon Prédhumeau. 2021. Modélisation et simulation de comportements piétons réalistes en espace partagé avec un véhicule autonome. Université Grenoble Alpes. Français. [tel-03518751](https://hal.archives-ouvertes.fr/tel-03518751)
 
 ## Licence
 The core `libpedsim` is licensed under LGPL.  
