@@ -586,6 +586,6 @@ std_msgs::Header Simulator::createMsgHeader() const
 {
   std_msgs::Header msg_header;
   msg_header.stamp = ros::Time::now();
-  msg_header.frame_id = CONFIG.ns=="" ? "odom" : CONFIG.ns+"/odom";
+  msg_header.frame_id = "odom";
   return msg_header;
 }
