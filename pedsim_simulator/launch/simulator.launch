@@ -48,7 +48,7 @@
   <param name="robot_description" textfile="$(arg robot_description)" if="$(arg with_robot)"/>
 
    <node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher" if="$(arg with_robot)" />
-   <node name="robot_state_publisher" pkg="robot_state_publisher" type="state_publisher" if="$(arg with_robot)"/>
+   <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" if="$(arg with_robot)"/>
 
   <!-- main simulator node -->
   <node name="pedsim_simulator" pkg="pedsim_simulator" type="pedsim_simulator" output="screen">
