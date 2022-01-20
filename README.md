@@ -43,9 +43,14 @@ It allows:
 
 ### Requirements
 Tested on:
-- Ubuntu 16.04 with ROS Kinetic and Gazebo7 
-- Ubuntu 18.04 with ROS Melodic and Gazebo9
-- Ubuntu 20.04 with ROS Noetic and Gazebo11
+- Ubuntu 16.04 with ROS Kinetic and Gazebo7 (master branch)
+- Ubuntu 18.04 with ROS Melodic and Gazebo9 (master branch)
+- Ubuntu 20.04 with ROS Noetic and Gazebo11 (noetic branch)
+
+Requires:
+- ROS with the navigation and visualization stack
+- C++11 compiler (or C++14 for Noetic)
+- Qt4 (or Qt5 for Noetic)
 - Gazebo if pedsim_gazebo_plugin is used
 
 ### Install commands
@@ -72,6 +77,15 @@ Ready to test scenarios are in the `experimental_package/scenarios` repository.
 roslaunch pedsim_gazebo_plugin scene1.launch
 ```
 The previous command should start the simulator and Gazebo with some pedestrians. 
+
+
+### Parallel execution of multiple nodes
+
+```
+roslaunch experimental_package multi_node_parallel.launch
+```
+The previous command starts 2 simulations with the business area environment and the shared space scenario, with AV max speed of 2m/s and 4m/s respectively.  
+
 
 <br/>
 
@@ -233,10 +247,11 @@ For now, the social force is configured to have the AV go straight to its destin
 <br/>
 
 
-## Reference paper
+## Reference papers
 Manon Prédhumeau. 2021. Simulating Realistic Pedestrian Behaviors in the Context of Autonomous Vehicles in Shared Spaces: Doctoral Consortium. In Proc. of the 20th International Conference on Autonomous Agents and Multiagent Systems (AAMAS 2021), May 3–7, 2021, IFAAMAS, 3 pages.
 [http://www.ifaamas.org/Proceedings/aamas2021/pdfs/p1829.pdf](http://www.ifaamas.org/Proceedings/aamas2021/pdfs/p1829.pdf)
 
+Manon Prédhumeau. 2021. Modélisation et simulation de comportements piétons réalistes en espace partagé avec un véhicule autonome. Université Grenoble Alpes. Français. [tel-03518751](https://hal.archives-ouvertes.fr/tel-03518751)
 
 ## Licence
 The core `libpedsim` is licensed under LGPL.  
