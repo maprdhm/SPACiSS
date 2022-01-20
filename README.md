@@ -79,7 +79,7 @@ roslaunch pedsim_gazebo_plugin scene1.launch
 The previous command should start the simulator and Gazebo with some pedestrians. 
 
 
-### Parallel execution of multiple nodes (only available on Ubuntu 16 with ROS Kinetic)
+### Parallel execution of multiple nodes
 
 ```
 roslaunch experimental_package multi_node_parallel.launch
