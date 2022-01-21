@@ -96,14 +96,15 @@ int main(int argc, char** argv)
 
   std::string ns = "";
   privateHandle.param<std::string>("ns", ns, "");
+  ns = ns==""? ns : ns+"/";
 
   // Process parameters
   privateHandle.param<std::string>("world_frame", g_worldFrame, "odom");
-  privateHandle.param<std::string>("robot_frame", g_robotFrame, ns=="" ? "base_footprint" : ns+"/base_footprint");
+  privateHandle.param<std::string>("robot_frame", g_robotFrame, ns+"base_footprint");
 
-  privateHandle.param<double>("/"+ns+"/pedsim_simulator/simulation_factor", g_simulationFactor,
+  privateHandle.param<double>("/"+ns+"pedsim_simulator/simulation_factor", g_simulationFactor,
                               1.0);                                                  // set to e.g. 2.0 for 2x speed
-  privateHandle.param<double>("/"+ns+"/pedsim_simulator/update_rate", g_updateRate, 25.0);  // in Hz
+  privateHandle.param<double>("/"+ns+"pedsim_simulator/update_rate", g_updateRate, 25.0);  // in Hz
 
   double initialX = 0.0, initialY = 0.0, initialTheta = 0.0;
 
@@ -121,7 +122,7 @@ int main(int argc, char** argv)
 
  if(robot_mode == 2)
  {
-   odometrySubscriber= nodeHandle.subscribe<nav_msgs::Odometry>("/"+ns+"/pedsim_simulator/robot_position", 3, onOdometryReceived);
+   odometrySubscriber= nodeHandle.subscribe<nav_msgs::Odometry>("/"+ns+"pedsim_simulator/robot_position", 3, onOdometryReceived);
  }
  else {
     //handle cmd_vel
