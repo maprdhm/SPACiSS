@@ -38,13 +38,11 @@
   </include>
 
    <!-- Visualizer -->
-   <include file="$(find pedsim_visualizer)/launch/visualizer.launch">
+   <include file="$(find pedsim_visualizer)/launch/visualizer.launch" if="$(arg visualize)">
    </include>
+
+   <!-- Rviz -->
+   <node pkg="rviz" type="rviz" name="rviz" args="-d $(find pedsim_simulator)/rviz/with_robot_zoe.rviz" if="$(arg visualize)"/>
 </launch>
-
-
-
-
-
 
 
