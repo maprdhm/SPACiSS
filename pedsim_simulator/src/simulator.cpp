@@ -97,6 +97,7 @@ bool Simulator::initializeSimulation()
 
   std::string ns;
   nh_.param<std::string>("ns", CONFIG.ns, "");
+  CONFIG.ns = CONFIG.ns==""? CONFIG.ns : CONFIG.ns+"/";
 
   // load additional parameters
   std::string scene_file_param;
@@ -315,13 +316,13 @@ void Simulator::updateRobotPositionFromTF()
     tf::StampedTransform tfTransform;
     try
     {
-      transform_listener_->lookupTransform(CONFIG.ns==""?"odom":CONFIG.ns+"/odom", CONFIG.ns==""?"base_footprint":CONFIG.ns+"/base_footprint", ros::Time(0), tfTransform);
+      transform_listener_->lookupTransform(CONFIG.ns+"odom",CONFIG.ns+"base_footprint", ros::Time(0), tfTransform);
     }
     catch (tf::TransformException& e)
     {
        try
        {
-         transform_listener_->lookupTransform("zoe/odom", CONFIG.ns==""?"base_link":CONFIG.ns+"/base_link", ros::Time(0), tfTransform);
+         transform_listener_->lookupTransform("zoe/odom", CONFIG.ns+"base_link", ros::Time(0), tfTransform);
        }
        catch (tf::TransformException& e)
        {
@@ -361,7 +362,7 @@ void Simulator::publishRobotPosition()
 
   nav_msgs::Odometry robot_location;
   robot_location.header = createMsgHeader();
-  robot_location.child_frame_id = CONFIG.ns==""?"base_footprint":CONFIG.ns+"/base_footprint";
+  robot_location.child_frame_id = CONFIG.ns+"base_footprint";
 
   robot_location.pose.pose.position.x = robot_->getx();
   robot_location.pose.pose.position.y = robot_->gety();
