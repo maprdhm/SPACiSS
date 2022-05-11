@@ -15,14 +15,14 @@ It allows:
 
 ##  Contents
 * **[Features](#features)**
-* **[Installation](#installation)**
-* **[AV control modes](#av-modes)**
+* **[Installation](#installation-and-launch)**
+* **[AV control modes](#av-control-modes)**
 * **[Launch files](#launch-files)**
 * **[Scenarios](#scenarios)**
-* **[Reference paper](#reference-paper)**
+* **[Reference papers](#reference-papers)**
 * **[License](#license)**
 * **[Contributors](#contributors)**
-* **[Acknowledgments](#acknowledgments)**
+* **[Acknowledgements](#acknowledgements)**
 
 <br/>
 
@@ -253,7 +253,7 @@ Manon Prédhumeau. 2021. Simulating Realistic Pedestrian Behaviors in the Contex
 
 Manon Prédhumeau. 2021. Modélisation et simulation de comportements piétons réalistes en espace partagé avec un véhicule autonome. Université Grenoble Alpes. Français. [tel-03518751](https://hal.archives-ouvertes.fr/tel-03518751)
 
-## Licence
+## License
 The core `libpedsim` is licensed under LGPL.  
 The ROS integration and extensions are licensed under BSD.
 
