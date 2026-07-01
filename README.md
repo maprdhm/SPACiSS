@@ -1,7 +1,7 @@
 # SPACiSS
 Simulation of Pedestrians and an Autonomous Car in Shared Spaces
 
-<img src=pedsim_simulator/images/pedsim_av.png width=500/>
+<img src=pedsim_simulator/images/pedsim_av.png width=600/>
 
 [![DOI](https://zenodo.org/badge/308359391.svg)](https://zenodo.org/badge/latestdoi/308359391)
 
@@ -9,11 +9,9 @@ The implementation is based on [Pedsim_ros](https://github.com/srl-freiburg/peds
 The pedestrian model is based on the social force model of [Helbing et. al](http://arxiv.org/pdf/cond-mat/9805244.pdf).
 
 This package is useful to support Autonomous vehicle (AV) developments that require the simulation of pedestrians and an AV in various shared spaces scenarios.  
-It allows:  
-&nbsp;&nbsp;&nbsp;1. in simulation, to pre-test AV navigation algorithms in various crowd scenarios,  
-&nbsp;&nbsp;&nbsp;2. in real crowds, to help online prediction of pedestrian trajectories around the AV.
+It allows:  &nbsp;1. in simulation, to pre-test AV navigation algorithms in various crowd scenarios,  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2. in real crowds, to help online prediction of pedestrian trajectories around the AV.
 
-<br/>
 
 ##  Contents
 * **[Features](#features)**
@@ -29,25 +27,33 @@ It allows:
 <br/>
 
 ## Features
-- Heterogeneous crowds in shared spaces for simulation and prediction of 100 pedestrians in real time.
-- Individuals and groups walking using social force model, with various social relationships
-- Prius AV model (from https://github.com/osrf/car_demo/tree/master/prius_description) or Zoe AV model (from https://univ-nantes.io/hamon-a/icars-public), controlled from within the simulation or by an external ROS controller publishing velocity commands.
-- Pedestrians reactions to the AV
-- 3 shared space environments (business area, campus, citer center) and 8 scenarios for each env. ready to test AV navigation algorithms
-- Sensors simulation (point clouds in AV frame for people and walls)
-- XML based scene design
-- Visualization using Rviz
-- Optional plugin to connect with Gazebo
+- Heterogeneous crowds in shared spaces for simulation and prediction of up to 100 pedestrians in real time.
+- Individuals and groups walking using social force model, with various social relationships.
+- Prius AV model (from https://github.com/osrf/car_demo/tree/master/prius_description) or Zoe AV model (from https://univ-nantes.io/hamon-a/icars-public), controlled either from within the simulation or by an external ROS controller publishing velocity commands on a dedicated ROS topic.
+- Pedestrians reactions to the AV are modelled (see [reference papers](#reference-papers) for details).
+- 3 shared space environments (business area, campus, citer center) and 8 scenarios for each environment, ready to test AV navigation algorithms.
+- Sensors simulation (point clouds in AV frame for people and walls).
+- XML-based scene design.
+- Visualization using Rviz.
+- Optional plugin to connect with Gazebo.
 
 <br/>
 
 ## Installation and launch
+### 🚨 New functionality 2026 🚨
+SPACiSS can now be run in two ways:
+- in a Docker container
+- directly on the host machine
 
-### Requirements
+### Running SPACiSS in a Docker container
+(in progress...)
+
+### Running SPACiSS directly on the host machine
+#### Requirements
 Tested on:
-- Ubuntu 16.04 with ROS Kinetic and Gazebo7 (master branch)
-- Ubuntu 18.04 with ROS Melodic and Gazebo9 (master branch)
-- Ubuntu 20.04 with ROS Noetic and Gazebo11 (noetic branch)
+- Ubuntu 16.04 + ROS Kinetic + Gazebo7 (master branch)
+- Ubuntu 18.04 + ROS Melodic + Gazebo9 (master branch)
+- Ubuntu 20.04 + ROS Noetic + Gazebo11 (noetic branch)
 
 Requires:
 - ROS with the navigation and visualization stack
@@ -55,7 +61,10 @@ Requires:
 - Qt4 (or Qt5 for Noetic)
 - Gazebo if pedsim_gazebo_plugin is used
 
-### Install commands
+Refer to the tutorial file: [Tutorial](https://github.com/maprdhm/SPACiSS/blob/master/Tutorial%20install%20from%20scratch%20on%20ubuntu.pdf)
+
+#### Install commands
+
 ```
 cd [workspace]/src
 git clone https://github.com/maprdhm/Spaciss.git  
