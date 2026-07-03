@@ -39,17 +39,20 @@ It allows:  &nbsp;1. in simulation, to pre-test AV navigation algorithms in vari
 
 <br/>
 
-## Installation and launch
+## Installation
 ### 🚨 New functionality 2026 🚨
-SPACiSS can now be run in two ways:
+SPACiSS can now be run in two ways:  
 - in a Docker container
 - directly on the host machine
 
-### Running SPACiSS in a Docker container
+<details>
+<summary><h3>Running SPACiSS in a Docker container</h3></summary>
+     
 (in progress...)
-
-### Running SPACiSS directly on the host machine
-#### Requirements
+</details>
+<details>
+<summary><h3>Running SPACiSS directly on the host machine</h3></summary>
+<h4> Requirements </h4>
 Tested on:
 - Ubuntu 16.04 + ROS Kinetic + Gazebo7 (master branch)
 - Ubuntu 18.04 + ROS Melodic + Gazebo9 (master branch)
@@ -63,7 +66,7 @@ Requires:
 
 Refer to the tutorial file: [Tutorial](https://github.com/maprdhm/SPACiSS/blob/master/Tutorial%20install%20from%20scratch%20on%20ubuntu.pdf)
 
-#### Install commands
+<h4> Install commands </h4>
 
 ```
 cd [workspace]/src
@@ -74,8 +77,9 @@ cd ../..
 
 catkin_make or catkin build (twice at the first time)
 ```
+</details>
 
-### Sample usage
+## Sample launch
 ```
 roslaunch experimental_package business_area.launch
 ```
