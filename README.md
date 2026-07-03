@@ -115,6 +115,7 @@ docker exec -it ros_noetic bash
 <details>
 <summary><h3>Running SPACiSS directly on the host machine</h3></summary>
 <h4> Requirements </h4>
+    
 Tested on:
 - Ubuntu 16.04 + ROS Kinetic + Gazebo7 (master branch)
 - Ubuntu 18.04 + ROS Melodic + Gazebo9 (master branch)
