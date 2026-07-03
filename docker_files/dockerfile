@@ -1,0 +1,29 @@
+FROM osrf/ros:noetic-desktop-full
+
+ENV DEBIAN_FRONTEND=noninteractive
+
+# outils utiles
+RUN apt-get update && apt-get install -y \
+    python3-pip \
+    python3-catkin-tools \
+    python-is-python3 \
+    git \
+    nano \
+    ros-noetic-navigation \
+    ros-noetic-map-server \
+    ros-noetic-amcl \
+    ros-noetic-teb-local-planner \
+    && rm -rf /var/lib/apt/lists/*
+
+# workspace ROS
+WORKDIR /root/catkin_ws
+RUN mkdir -p src
+
+# build initial
+RUN /bin/bash -c "source /opt/ros/noetic/setup.bash && catkin_make"
+
+# auto-source ROS
+RUN echo "source /opt/ros/noetic/setup.bash" >> ~/.bashrc && \
+    echo "source /root/catkin_ws/devel/setup.bash" >> ~/.bashrc
+
+CMD ["bash"]
