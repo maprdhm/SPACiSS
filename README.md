@@ -3,7 +3,6 @@ Simulation of Pedestrians and an Autonomous Car in Shared Spaces
 
 <img src=pedsim_simulator/images/pedsim_av.png width=500/>
 
-
 [![DOI](https://zenodo.org/badge/308359391.svg)](https://doi.org/10.5281/zenodo.7085313)
 
 The implementation is based on [Pedsim_ros](https://github.com/srl-freiburg/pedsim_ros), ROS packages that wrap a crowd simulator based on Christian Gloor's [libpedsim](http://pedsim.silmaril.org/) library.  
@@ -48,9 +47,71 @@ SPACiSS can now be run in two ways:
 
 <details>
 <summary><h3>Running SPACiSS in a Docker container</h3></summary>
-     
-(in progress...)
+
+**1) Before starting, install Docker Engine and Docker Compose plugin, and check installation.**
+
+For example in Ubuntu: 
+```
+sudo apt update
+sudo apt install docker.io docker-compose-plugin -y
+docker --version
+docker compose version
+```
+If you are using Linux with an X11 system, run:
+```xhost +local:docker```
+
+This temporarily allows Docker containers to access your X11 display server for GUI applications.
+This need to be done every time the docker container is launched. To make it persistent you can put in your bash ```xhost +SI:localuser:$USER```
+
+**2) Create a new folder like this:**
+```
+project_name/
+├── dockerfile
+├── docker-compose.yml
+└── catkin_ws/
+    └── src/
+ ```
+For the [dockerfile](https://github.com/maprdhm/SPACiSS/blob/noetic/docker_files/dockerfile) and [docker-compose.yml](https://github.com/maprdhm/SPACiSS/blob/noetic/docker_files/docker-compose.yml), take the ones that are provided in the noetic branch of the SPACiSS gitHub repository.
+
+**3) Clone SPACiSS code:**
+```
+cd catkin_ws/src
+git clone -b noetic https://github.com/maprdhm/Spaciss.git  
+cd Spaciss
+git submodule update --init --recursive
+cd ../..
+```
+
+**4) Build the Docker container (named ros_noetic)**
+
+For example in Ubuntu: 
+```
+docker compose build
+docker compose up -d
+```
+
+**5) Open container bash and launch SPACiSS**
+
+For example in Ubuntu: 
+```
+docker exec -it ros_noetic bash
+catkin_make
+source devel/setup.bash
+roslaunch experimental_package business_area.launch
+```
+
+When you're done with working with SPACiSS, stop the container with ```docker stop ros_noetic```
+
+You can start it again later with 
+
+```
+docker start ros_noetic
+docker exec -it ros_noetic bash
+```
+
 </details>
+
+
 <details>
 <summary><h3>Running SPACiSS directly on the host machine</h3></summary>
 <h4> Requirements </h4>
