@@ -1,7 +1,8 @@
 # SPACiSS
 Simulation of Pedestrians and an Autonomous Car in Shared Spaces
 
-<img src=pedsim_simulator/images/pedsim_av.png width=600/>
+<img src=pedsim_simulator/images/pedsim_av.png width=500/>
+
 
 [![DOI](https://zenodo.org/badge/308359391.svg)](https://doi.org/10.5281/zenodo.7085313)
 
