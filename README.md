@@ -1,9 +1,9 @@
 # SPACiSS
 Simulation of Pedestrians and an Autonomous Car in Shared Spaces
 
-<img src=pedsim_simulator/images/pedsim_av.png width=600/>
+<img src=pedsim_simulator/images/pedsim_av.png width=500/>
 
-[![DOI](https://zenodo.org/badge/308359391.svg)](https://zenodo.org/badge/latestdoi/308359391)
+[![DOI](https://zenodo.org/badge/308359391.svg)](https://doi.org/10.5281/zenodo.7085313)
 
 The implementation is based on [Pedsim_ros](https://github.com/srl-freiburg/pedsim_ros), ROS packages that wrap a crowd simulator based on Christian Gloor's [libpedsim](http://pedsim.silmaril.org/) library.  
 The pedestrian model is based on the social force model of [Helbing et. al](http://arxiv.org/pdf/cond-mat/9805244.pdf).
