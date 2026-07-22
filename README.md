@@ -10,12 +10,12 @@ The pedestrian model is based on the social force model of [Helbing et. al](http
 
 This package is useful to support Autonomous vehicle (AV) developments that require the simulation of pedestrians and an AV in various shared spaces scenarios.  
 It allows:  &nbsp;1. in simulation, to pre-test AV navigation algorithms in various crowd scenarios,  
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2. in real crowds, to help online prediction of pedestrian trajectories around the AV.
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2. in real crowds, to help online prediction of pedestrian trajectories around the AV.
 
 
 ##  Contents
 * **[Features](#features)**
-* **[Installation](#installation-and-launch)**
+* **[Installation](#installation)**
 * **[AV control modes](#av-control-modes)**
 * **[Launch files](#launch-files)**
 * **[Scenarios](#scenarios)**
@@ -44,6 +44,8 @@ It allows:  &nbsp;1. in simulation, to pre-test AV navigation algorithms in vari
 SPACiSS can now be run in two ways:  
 - in a Docker container
 - directly on the host machine
+
+This allows SPACiSS to run on Linux and on Windows 10/11 (see specific Windows guidelines below).
 
 <details>
 <summary><h3>Running SPACiSS in a Docker container</h3></summary>
@@ -140,6 +142,104 @@ cd ../..
 
 catkin_make or catkin build (twice at the first time)
 ```
+</details>
+
+<details>
+<summary><h3>Running SPACiSS on Windows 10 or 11</h3></summary>
+    
+Running Docker and X server (for the visualization) on Windows leads to a very slow visualization.
+
+A good alternative is to use Docker running inside an Ubutnu WSL2.
+WSL2 runs Ubuntu inside a light virtualized kernel, but shares Windows kernel interfaces, is deeply integrated with Windows filesystem, GPU is directly passed through (via WSLg), and the visualisation is smooth.
+
+**1) Install Docker Desktop on Windows**
+
+https://www.docker.com/products/docker-desktop/
+
+During setup:
+- Enable WSL 2 backend
+- Make sure virtualization is enabled in BIOS and that under Windows Features, Virtual Machine Platform is checked.
+- After install, restart your PC.
+  
+**2) Check that Docker works**
+
+Open a terminal (PowerShell, Windows Terminal, Command Prompt)
+```
+docker --version
+docker compose version
+```
+If those return versions, you're good.
+
+**3) Install WSL and Ubuntu**
+```
+wsl --install
+```
+This command should install Windows Subsystem for Linux (WSL) and Ubuntu. Restart if needed.
+
+**4) Enable WSL**
+
+Under Docker desktop > Settings > WSL integration> check Enable Ubuntu
+
+**5) Test installation**
+
+Open Ubuntu by typing ```wsl``` in a terminal.
+
+Inside Ubuntu WSL terminal:
+```
+sudo apt update
+sudo apt install -y x11-apps
+xclock
+```
+This should open a clock on Windows.
+
+Check that docker is installed in WSL:
+```
+sudo docker version
+```
+
+If docker not found, install manually:
+```
+sudo apt update
+sudo apt install docker-cli -y
+sudo apt install ca-certificates curl -y
+
+sudo install -m 0755 -d /etc/apt/keyrings
+
+sudo curl -fsSL https://download.docker.com/linux/ubuntu/gpg -o /etc/apt/keyrings/docker.asc
+
+sudo chmod a+r /etc/apt/keyrings/docker.asc
+
+echo \
+"deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/ubuntu \
+$(. /etc/os-release && echo ${UBUNTU_CODENAME}) stable" | \
+sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+
+sudo apt update
+sudo apt install docker-compose-plugin -y
+```
+
+**6) Build docker and launch SPACiSS**
+
+Inside Ubuntu WSL terminal, follow the Running SPACiSS in a Docker container guidelines from step 2 (as Docker is already installed).
+
+You can start it again later with 
+```
+wsl
+docker start ros_noetic
+docker exec -it ros_noetic bash
+```
+
+>*Note: This might fix some issues in Windows:*
+>
+>*- Make sure the dockerfile is named dockerfile and not dockerfile.txt*
+>
+>*- echo $DISPLAY should display :0*
+>
+>*If the following error happends:*
+>*qt.qpa.xcb: could not connect to display*
+>*qt.qpa.plugin: Could not load the Qt platform plugin "xcb" in "" even though it was found.*
+>
+>*You might need to add "QT_QPA_PLATFORM=xcb ./app" in environment of the docker-compose.yml file and build again*
 </details>
 
 ## Sample launch
